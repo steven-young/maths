@@ -16,15 +16,16 @@ def is_prime(n):
 		i += 6
 	return True
 
-def gcd(p, q):
-	# Use Euclid's algorithm to find the GCD
-	while q != 0:
-		p, q = q, p % q
-	return p
-
 def is_coprime(x, y):
 	# Check if the GCD of x and y is equal to 1
-	return gcd(x, y) == 1
+	return math.gcd(x, y) == 1
+
+def phi(n):
+	val = 0
+	for k in range(1, n):
+		if math.gcd(n, k) == 1:
+			val += 1
+	return val
 
 def main():
 	parser = argparse.ArgumentParser(description="Determine primitive roots.")
@@ -32,10 +33,11 @@ def main():
 	args = parser.parse_args()
 	num = args.number
 
-	# Loop through numbers that are prime to the integer
-	#print(f"{num} is {'a prime number' if is_prime(num) else 'not prime number'}.")
+	# Loop through numbers that are coprime with num
 	print(f"{num} ", end='')
-	i = 2;
+	t = phi(num)
+	i = 2
+	output = ""
 	while i < num:
 		if is_coprime(num, i):
 			o = 1
@@ -44,10 +46,15 @@ def main():
 			while p != 1:
 				line += f"{p},"
 				p = (p * i) % num
+				o += 1
 			line += f"{p})"
-			print(line, end='')
+			if o == t:
+				output = line
+				break
+			else:
+				output += line
 		i += 1
-	print()
+	print(output)
 
 if __name__ == "__main__":
 	main()
