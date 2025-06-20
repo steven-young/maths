@@ -38,23 +38,33 @@ def main():
 	t = phi(num)
 	i = 2
 	output = ""
+	pr = []
 	while i < num:
 		if is_coprime(num, i):
 			o = 1
 			p = i
-			line = "("
+			g = [ p ]
+#			line = "("
 			while p != 1:
-				line += f"{p},"
+#				line += f"{p},"
 				p = (p * i) % num
+				g.append(p)
 				o += 1
-			line += f"{p})"
+#			line += f"{p})"
 			if o == t:
-				output = line
+				output = "("+",".join([str(i) for i in g])+")"
+				for k in range(1, t):
+					if math.gcd(k, t) == 1:
+						pr.append(g[k-1])
 				break
 			else:
-				output += line
+				output += "("+",".join([str(i) for i in g])+")"
 		i += 1
-	print(output)
+	print(output,end=' ')
+	if len(pr) == 0:
+		print("No primitive roots")
+	else:
+		print(*[str(i) for i in sorted(pr)], sep=" ")
 
 if __name__ == "__main__":
 	main()
