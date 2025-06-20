@@ -62,7 +62,7 @@ def main():
 		i += 1
 	print(output,end=' ')
 	if len(pr) == 0:
-		print("No primitive roots")
+		print("-")
 	else:
 		print(*[str(i) for i in sorted(pr)], sep=" ")
 
