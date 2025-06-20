@@ -30,11 +30,12 @@ def phi(n):
 def main():
 	parser = argparse.ArgumentParser(description="Determine primitive roots.")
 	parser.add_argument("number", type=int, help="The integer to analyze")
+	parser.add_argument("-p","--print_subgroups",action="store_true",help="Print sub groups")
 	args = parser.parse_args()
 	num = args.number
 
 	# Loop through numbers that are coprime with num
-	print(f"{num} ", end='')
+	print(f"{num}: ", end='')
 	t = phi(num)
 	i = 2
 	output = ""
@@ -60,7 +61,8 @@ def main():
 			else:
 				output += "("+",".join([str(i) for i in g])+")"
 		i += 1
-	print(output,end=' ')
+	if args.print_subgroups:
+		print(output,end=' ')
 	if len(pr) == 0:
 		print("-")
 	else:
