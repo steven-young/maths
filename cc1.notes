@@ -1,5 +1,6 @@
 15 Feb 2026
-https://oeis.org/A005602 lists the smallest prime beginning a complete Cunningham chain of length n (of the first kind)
+https://oeis.org/A005602 lists the smallest prime beginning a
+complete Cunningham chain of length n (of the first kind)
 
 1	13
 2	3
@@ -41,8 +42,10 @@ https://oeis.org/A005602 lists the smallest prime beginning a complete Cunningha
 
 16  810433818265726529159 = 2*2*2*3*5*11*13*149*4716559*67203011 - 1 = 89 (mod 210) = 1979 (mod 2310) = 4289 (mod 30030) [ = 454739 (mod 510510)]
 
-Maximum length of a CC1 for primes which are = 89,149,179 (mod 210)?
-Maximum length of a CC1 for primes which are = 989,1649,1979 (mod 2310)?
+Maximum length of a CC1 for primes which are = 89,149,179 (mod
+210)?
+Maximum length of a CC1 for primes which are = 989,1649,1979 (mod
+2310)?
 
 Primorials: 2,6,30,210,2310,30030,510510,9699690,223092870
 
@@ -83,9 +86,9 @@ k=73,62,40
 1573 3146 6292 12584 8151 16302 15587 14157 11297 5577 11154 5291 10582 4147 8294 16588 16159 15301 13585 10153 3289 6578 13156 9295 count=24
 ./times-two-mod.py -c 7293 17017
 7293 14586 12155 count=3
-Note that the 143 chain here doesn't contain (30k-1) values which are
-divisible by 17.  The 1573 chain contains 2 (30k-1) values which
-are divisible by 17.  These are k=12584,5281,10153.
+Note that the 143 chain here doesn't contain (30k-1) values
+which are divisible by 17.  The 1573 chain contains 2 (30k-1)
+values which are divisible by 17.  These are k=12584,5281,10153.
 
 218789,364649,437579 (mod 510510) 30k-1	k=7293,12155,14586 (mod 17017)
 4290,8580,17160,34320,68640,137280,274560,38610,77220,154440,308880,107250,214500,429000,347490,184470,368940,227370,454740,398970,287430,64350,128700,257400
@@ -100,8 +103,10 @@ are divisible by 17.  These are k=12584,5281,10153.
 46189 92378 184756 count=3
 ./times-two-mod.py -c 75361 323323
 75361 150722 301444 279565 235807 148291 296582 269841 216359 109395 218790 114257 228514 133705 267410 211497 99671 199342 count=18
-All the count=18 sequences here have a single value which is divisible by 19
-For the count=3 sequence, the (30k-1) values are all equivalent to 18 modulo 19
+All the count=18 sequences here have a single value which is
+divisible by 19
+For the count=3 sequence, the (30k-1) values are all equivalent
+to 18 modulo 19
 
 ./times-two-mod.py -c 143 323323
 143 286 572 1144 2288 4576 9152 18304 36608 73216 146432 292864 262405 201487 79651 159302 318604 313885 304447 285571 247819 172315 21307 42614 85228 170456 17589 35178 70356 140712 281424 239525 155727 311454 299585 275847 228371 133419 266838 210353 97383 194766 66209 132418 264836 206349 89375 178750 34177 68354 136708 273416 223509 123695 247390 171457 19591 39182 78364 156728 313456 303589 283855 244387 165451 7579 15158 30316 60632 121264 242528 161733 count=72
@@ -117,14 +122,16 @@ For the count=3 sequence, the (30k-1) values are all equivalent to 18 modulo 19
 21593 43186 86372 172744 22165 44330 88660 177320 31317 62634 125268 250536 177749 32175 64350 128700 257400 191477 59631 119262 238524 153725 307450 291577 259831 196339 69355 138710 277420 231517 139711 279422 235521 147719 295438 267553 211783 100243 200486 77649 155298 310596 297869 272415 221507 119691 239382 155441 310882 298441 273559 223795 124267 248534 173745 24167 48334 96668 193336 63349 126698 253396 183469 43615 87230 174460 25597 51194 102388 204776 86229 172458 count=72
 ./times-two-mod.py -c 35321 323323
 35321 70642 141284 282568 241813 160303 320606 317889 312455 301587 279851 236379 149435 298870 274417 225511 127699 255398 187473 51623 103246 206492 89661 179322 count=24
-All of the 30k-1 values in this last line are equivalent to 18 modulo 19
+All of the 30k-1 values in this last line are equivalent to 18
+modulo 19
 
 1385669,2771339,5542679 (mod 9699690)	30k-1	k=46189,92378,184756 (mod 323323)
 1059629,1548689,2119259,2689829,3097379,3830969,4238519,4483049,4809089,5379659,5624189,6194759,6765329,7091369,7254389,7661939,8232509,8395529,8477039,8966099,9047609,9373649,9536669,9618179 (mod 9699690)   30k-1   k=35321,51623,70642,89661,103246,127699,141284,149435,160303,179322,187473,206492,225511,236379,241813,255398,274417,279851,282568,298870,301587,312455,317889,320606 (mod 323323)
 
 ./times-two-mod.py -c 46189 7436429
 46189 92378 184756 369512 739024 1478048 2956096 5912192 4387955 1339481 2678962 5357924 3279419 6558838 5681247 3926065 415701 831402 1662804 3325608 6651216 5866003 4295577 1154725 2309450 4618900 1801371 3602742 7205484 6974539 6512649 5588869 3741309 count=33
-In the sequence about there are 3 (30k-1) values which are divisible by 23: 92378, 3279419,1154725
+In the sequence about there are 3 (30k-1) values which are
+divisible by 23: 92378, 3279419,1154725
 ./times-two-mod.py -c 508079 7436429
 508079 1016158 2032316 4064632 692835 1385670 2771340 5542680 3648931 7297862 7159295 6882161 6327893 5219357 3002285 6004570 4572711 1708993 3417986 6835972 6235515 5034601 2632773 5265546 3094663 6189326 4942223 2448017 4896034 2355639 4711278 1986127 3972254 count=33
 This sequence of (30k-1) values are not divisible by 23
@@ -140,7 +147,8 @@ modulo 19, things start to explode.  The count=24 values in the
 "times 2 modulo 7436429" sequences become 2 sequences of
 count=264 and one of count=24.  One of the count=264 sequences
 consists of (30*k-1) values which are not divisible by 23
-The count=24 sequence of (30*k-1) values is equivalent to 22 modulo 23
+The count=24 sequence of (30*k-1) values is equivalent to 22
+modulo 23
  
 Things start to explode, but also this means that there are many
 sequences that are valid to explore up where there could exist
@@ -154,3 +162,19 @@ Also listed on https://en.wikipedia.org/wiki/Cunningham_chain
 CC of length 16
 91304653283578934559359 = 2*2*2*2*2*2*2*3*3*5*7*11*13*19*833456138923019 - 1
 91304653283578934559360*2^17-1 = 11967483515185258110564433919 = 107*4957*10153601*2222184162966881
+
+17 Feb 26
+I can see that for chains where the values are equivalent
+to 89,149,179 (mod 210), but not equivalent to 989,1649,1979
+(mod 2310), then the maximum chain length is 9 since the cycle
+of values mod 11 has size 10,
+I can also see that for chains where the values are equiv 209
+(mod 210) but not equivalent to 2309 (mod 2310), then the
+maximum chain length is 11 since the cycles of values mod 13
+has size 12.
+There is further working to be done in this context to consider
+further chain length maximums as we move further into the sieve
+options but also further thinking.  The "search" for chains of
+longer lengths by searching through (30.k-1) values which are
+equivalent to various values module p# could be considered in
+a more systematic fashion.
