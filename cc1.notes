@@ -178,3 +178,8 @@ options but also further thinking.  The "search" for chains of
 longer lengths by searching through (30.k-1) values which are
 equivalent to various values module p# could be considered in
 a more systematic fashion.
+
+Could add to cunningham-chain-type1.py script to include checking
+of values modulo p# and information about identified maximum
+cycle lengths
+
