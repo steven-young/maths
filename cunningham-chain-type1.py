@@ -54,12 +54,16 @@ def main():
 	parser.add_argument("number", type=int, help="The start of the chain")
 	parser.add_argument("-c","--show_composite",action="store_true",help="Print composite value at end of chain")
 	parser.add_argument("-l","--show_length",action="store_true",help="Print length of chain")
+	parser.add_argument("-n","--report_not_start",action="store_true",help="Report if chain doesn't start with number")
 	args = parser.parse_args()
 	num = args.number
+	start = args.number
+	not_start = False
 	if (is_prime(num)):
 		prev = (num-1)/2.0
 		while (prev >= 2 and int(prev) == prev):
 			if (is_prime(prev)):
+				not_start = True
 				num=int(prev)
 				prev = (num-1)/2.0
 			else:
@@ -74,7 +78,9 @@ def main():
 				factors=prime_factors(num)
 				print(f"({num}="+"*".join(str(i) for i in factors)+") ", end='')
 			if (args.show_length):
-				print(f"Chain length {length}", end='')
+				print(f"Chain length {length} ", end='')
+			if (not_start and args.report_not_start):
+				print(f"{start} not start of chain ", end='')
 		print('')
 	else:
 		factors=prime_factors(num)
