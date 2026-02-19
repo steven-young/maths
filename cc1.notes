@@ -1,4 +1,105 @@
 15 Feb 2026
+Consider that we treat all the natural numbers as prime
+candidates, unless we remove them in the style of Eratosthenes
+sieve
+Starting with 2 as prime, we remove all larger multiples of 2,
+then the set of prime candidates includes the number 2 and all
+odd numbers.
+For any prime candidate we choose, then this leads to an infinite
+Cunningham chain of prime candidates (of either type).
+If we sieve out multiples of 3, then we have the numbers 2, 3 and
+a cycle of numbers which are equivalent to 1 or 5 modulo 6
+For Cunningham chains of type 1, then for chains starting with a
+value a_1 equivalent to 1 (mod 6), then a_2 is equivalent to 3
+(mod 6) and so is known to be composite.  So the values
+equivalent to 1 (mod 6) end a CC of type 1.
+For any value equivalent to 5 (mod 6), then the next item in the
+chain is also equivalent to 5 (mod 6) and so this leads to
+infinite Cunningham chains of type 1 in the set of prime
+candidates which have multiples of 2 and 3 removed.
+Similarly for CC_2, a_1 equiv to 5 (mod 6) leads to a_2 equiv to
+3 (mod 6), so ends the chain.  But for a_i equiv to 1 (mod 6),
+then next value in the chain is equiv 1 (mod 6), so infinite CC
+of type 2.
+
+Let's proceed to sieving multiples of 5 from our prime candidate
+set.  This leaves, 2, 3 and 5 and values which are equivalent to
+1,7,11,13,17,19,23,29 (mod 30).
+For CC_1, we can see that if a chain starts with a value
+equivalent to 1,7,13,19 (mod 30), these are all equiv 1 (mod 6),
+so as above end a chain.
+Consider a chain, a_1 equiv 11 (mod 30), then a_2 is
+equiv 23 (mod 30), and a_3 is equiv 17 (mod 30), then a_4 is
+equiv 5 (mod 30) and so ends the chain.  All chains which have
+values which are equiv 11, 17 or 23 (mod 30), then are finite.
+For values equiv 29 (mod 30), then the next value is also equiv
+29 (mod 30), leading to candidate infinite chains of type 1.
+
+Similar arguments for CC_2, lead to finite chains for all values
+of prime candidates, except for those equiv 1 (mod 30).
+
+If we consider the sieving of multiples of 7, and want to
+consider possible long chains, then we need to consider the
+values:
+29,59,89,149,179,209 (mod 210) (noting that the value 119 (mod
+210) has been removed since 119 is a multiple of 7 (119 = 7.17).
+Consider
+
+a_1 = 29, a_2 = 59 and a_3 = 119 (mod 210)
+
+then chains
+of type 1 which start from value which are equivalent to 29 or 59
+(mod 210), are finite.
+Consider
+
+a_1 = 89, a_2 = 179, a_3 = 149, a_4 = 89, .. (mod 210)
+a_1 = 209, a_2 = 209, ..
+
+then chains which have values which are equiv to 89, 149, 179 or
+209 (mod 210) are infinite candidate chains.
+
+(I'm going to stop including type 2 discussion now)
+
+If we sieve multiples of 11, then consider the type 1 infinite
+candidate chains.  If we consider the candidate values in the
+form 30k-1, then for the values modulo 210 the candidate
+cycle of k = (3,6,5) mod 7 can be "expanded" into two cycles which
+are modulo 77.
+
+k = (3,6,12,24,48,19,38,76,75,73,69,61,45,13,26,52,27,54,31,62,47,17,34,68,59,41,5,10,20,40) mod 77
+k = (33,66,55) mod 77
+
+Also the value 209 (mod 210) which equating to 30k-1 where k=7
+can be similarly expanded to
+
+k = (7,14,28,56,35,70,63,49,21,42) mod 77
+k = 77 or 0 (mod 77)
+
+If we consider the CC_1 values a_i and assume that a_1 = 1 (mod
+11), then the CC_1 values, then the remainders modulo 11 cycle as
+follows:
+
+(1,3,7,4,9,8,6,2,5,0) mod 11
+
+This implies that for CC_1 values which have remainders in the
+above cycle, then the cycle contains a value divisible by 11,
+hence this means finite type 1 chains.
+This remainder cycle maps onto the k=(3,..) cycle and the
+k=(7,..) cycle.  The values of k which correspond to values
+divisible by 11 are k=7,73,62,40 (mod 77)
+Any chain which has a value (30k-1) where k is in either of these
+cycles will lead to finite type 1 chains (of length 9 at most).
+
+For the values which have k=(33,66,55) or k=0 mod 77, it is
+observed that the all the values (30k-1) for these values of k
+are not divisible by 11 but are equivalent to 10 modulo 11.
+
+This implies that any type 1 chains which are equivalent to
+989,1649,1979 or 2309 (mod 2310) are infinite candidate chains.
+
+See further down for working which considers sieves to
+13,17,19,23
+
 https://oeis.org/A005602 lists the smallest prime beginning a
 complete Cunningham chain of length n (of the first kind)
 
@@ -39,6 +140,8 @@ complete Cunningham chain of length n (of the first kind)
 95405042230542329 190810084461084659 381620168922169319 763240337844338639 1526480675688677279 3052961351377354559 6105922702754709119 12211845405509418239 24423690811018836479 48847381622037672959 97694763244075345919 195389526488150691839 390779052976301383679 781558105952602767359 (1563116211905205534719=19*19*317*84357233*161920739) Chain length 14
 
 15	90616211958465842219 = 2*2*3*3*3*5*11*13*19*23*23*571*204470531 - 1 = 179 (mod 210) = 1649 (mod 2310) = 8579 (mod 30030) [ = 128699 (mod 510510)]
+./cunningham-chain-type1.py -lc 90616211958465842219
+90616211958465842219 181232423916931684439 362464847833863368879 724929695667726737759 1449859391335453475519 2899718782670906951039 5799437565341813902079 11598875130683627804159 23197750261367255608319 46395500522734511216639 92791001045469022433279 185582002090938044866559 371164004181876089733119 742328008363752179466239 1484656016727504358932479 (2969312033455008717864959=300929*9867151499041331071) Chain length 15
 
 16  810433818265726529159 = 2*2*2*3*5*11*13*149*4716559*67203011 - 1 = 89 (mod 210) = 1979 (mod 2310) = 4289 (mod 30030) [ = 454739 (mod 510510)]
 
