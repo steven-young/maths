@@ -1,22 +1,14 @@
 #!/usr/bin/env python3
 import argparse
 import math
+import subprocess
 
 cont_count = 20
 
 def is_prime(n):
-	if n <= 1:
-		return False
-	if n <= 3:
-		return True
-	if n % 2 == 0 or n % 3 == 0:
-		return False
-	i = 5
-	while i * i <= n:
-		if n % i == 0 or n % (i + 2) == 0:
-			return False
-		i += 6
-	return True
+	result = subprocess.run(["openssl","prime", str(n)], stdout=subprocess.PIPE)
+	output= str(result.stdout)
+	return not (output.find("is prime")== -1)
 
 def prime_factors(n: int) -> list[int]:
     factors = []
@@ -55,15 +47,15 @@ def cc1(num, args):
 	global cont_count
 	start = args.number
 	if (is_prime(num)):
-		prev = (num-1)/2.0
+		prev = (num-1)//2
 		reported_start = False
-		while (prev >= 2 and int(prev) == prev):
+		while (prev >= 2 and num == (prev*2)+1):
 			if (is_prime(prev)):
 				if (args.report_not_start and not reported_start):
 					print(f"{start} not start of chain: ", end='', flush=True)
 					reported_start = True
 				num=int(prev)
-				prev = (num-1)/2.0
+				prev = (num-1)//2
 			else:
 				break
 		length = 0
@@ -79,28 +71,32 @@ def cc1(num, args):
 				print(f"({num}="+"*".join(str(i) for i in factors)+") ", end='', flush=True)
 			if (args.continuous):
 				if (cont_count > 0 or args.cont_count == 0):
-					print("(", end='', flush=True)
+					factors=prime_factors(num)
+					print(f"({num}="+"*".join(str(i) for i in factors), end='', flush=True)
+					num = 2*num+1
 					while (not is_prime(num)):
 						factors=prime_factors(num)
-						print(f"{num}="+"*".join(str(i) for i in factors)+" ", end='', flush=True)
+						print(f" {num}="+"*".join(str(i) for i in factors), end='', flush=True)
 						num = 2*num+1
 						if (args.continuous):
 							cont_count = cont_count - 1
-					print(f"{num} is next prime) ", end='', flush=True)
+					print(") ", end='', flush=True)
 		print('', flush=True)
 	else:
 		factors=prime_factors(num)
-		print(f"{num} is composite "+"*".join(str(i) for i in factors)+" ",end='', flush=True)
+		print(f"({num}="+"*".join(str(i) for i in factors),end='', flush=True)
 		if (args.continuous):
 			if (cont_count > 0 or args.cont_count == 0):
 				num = 2*num+1
 				while (not is_prime(num)):
 					factors=prime_factors(num)
-					print(f"{num}="+"*".join(str(i) for i in factors)+" ", end='', flush=True)
+					print(f" {num}="+"*".join(str(i) for i in factors), end='', flush=True)
 					num = 2*num+1
 					if (args.continuous):
 						cont_count = cont_count - 1
-				print(f"{num} is next prime) ", end='', flush=True)
+				print(") ", end='', flush=True)
+		else:
+			print(") ", end='', flush=True)
 		print('', flush=True)
 	return num
 
