@@ -15,7 +15,7 @@ do
   echo
 done
 
-for i in 23 43 47 71 89
+for i in 23 41 43 47 71 79 89 97
 do
   echo -n "($1+$2*$3)*30%$i="
   val=`echo "($1+$2*$3)*30%$i" | bc`
