@@ -11,26 +11,28 @@ def is_prime(n):
 	return not (output.find("is prime")== -1)
 
 def prime_factors(n: int) -> list[int]:
-    factors = []
+	factors = []
     
-    # Handle factor 2 separately (only even prime)
-    while n % 2 == 0:
-        factors.append(2)
-        n //= 2
+	# Handle factor 2 separately (only even prime)
+	while n % 2 == 0:
+		factors.append(2)
+		n //= 2
 
-    # Check odd factors up to sqrt(n)
-    i = 3
-    while i * i <= n:
-        while n % i == 0:
-            factors.append(i)
-            n //= i
-        i += 2
+	# Check odd factors up to sqrt(n)
+	i = 3
+	while i * i <= n:
+		while n % i == 0:
+			factors.append(i)
+			n //= i
+		if is_prime(n):
+			break
+		i += 2
 
-    # If remainder is a prime number > 2
-    if n > 1:
-        factors.append(n)
+	# If remainder is a prime number > 2
+	if n > 1:
+		factors.append(n)
 
-    return factors
+	return factors
 
 #def is_coprime(x, y):
 #	# Check if the GCD of x and y is equal to 1

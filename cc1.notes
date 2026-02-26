@@ -1,3 +1,17 @@
+07 Feb 2026
+1,7,11,13,17,19,23,29
+1,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,121,127,131,137,139,143,149,151,157,163,167,169,173,179,181,187,191,193,197,199,209
+
+10 Feb 2026
+1,2,4
+3,6,5
+7
+3,6,12,24,..
+89,159,359,719,1439,2879,5759(=13*443),11519,23039,46079(=11*59*71)
+149,299(=13*23),599,1199(=11*109),2399,4799,9599(=29*331)
+179,359,719,1439,2879,5759(=13*443)
+209(=11*19),419,839,1679(=23*73),3359,6719,13439(=89*151)
+
 15 Feb 2026
 Consider that we treat all the natural numbers as prime
 candidates, unless we remove them in the style of Eratosthenes
@@ -266,7 +280,20 @@ CC of length 16
 91304653283578934559359 = 2*2*2*2*2*2*2*3*3*5*7*11*13*19*833456138923019 - 1
 91304653283578934559360*2^17-1 = 11967483515185258110564433919 = 107*4957*10153601*2222184162966881
 
-17 Feb 26
+16 Feb 2026
+Worked on Cunningham Chain investigation
+Wrote a python script which printed chains given an input
+number
+Found that Python implements arbitrary precision for
+integer
+arithmetic. That’s amazing
+For larger integers then the script can take a long time to
+respond
+Should really implement a saved state mechanism and a
+signal trap
+to output current state
+
+17 Feb 2026
 I can see that for chains where the values are equivalent
 to 89,149,179 (mod 210), but not equivalent to 989,1649,1979
 (mod 2310), then the maximum chain length is 9 since the cycle
@@ -286,3 +313,63 @@ Could add to cunningham-chain-type1.py script to include checking
 of values modulo p# and information about identified maximum
 cycle lengths
 
+19 Feb 26
+What is the primality test mechanism in openssl prime function?
+Float division is not something to use in python when it is
+working with arbitrary and large integers
+
+20 Feb 26
+Improve the Cunningham script to not exhaustively search for
+prime factors but to only search for “small factors” (eg where 2
+is not a primitive root..)
+Determination of where gaps in small factor patterns occur and
+run checks on existence of CC sequences in these locations
+
+21 Feb 26
+I want to work through Cunningham chain thinking and write up
+details of length restrictions for chains based on Eratosthenes
+sieve investigation I’ve started
+
+22 Feb 26
+Primes which are = 1 (mod 6) are not Sophie Germain primes, form
+type 1 Cunningham chains of length 1
+For primes which are = 11, 17 or 23 (mod 30) these can only ever
+form type 1 Cunningham  chains of length at most 3, except for
+11, 23, 47 which form a chain of length 5, namely 2, 5, 11, 23,
+47.  Starting at 30.k+11, the sequence continues 30.2.k+23,
+30.(4.k+1)+17 and the next item in the sequence is composite,
+30(8.k+3)+5
+For primes = 29 (mod 29), if the primes are also = 1 or 3 (mod
+7)
+then these can only form type 1 Cunningham chains of length at
+most 2, for example the chain 29 = 1 (mod 7), 59 = 3 (mod 7),
+119=7.17, since for a prime p_i = 3 (mod 7), then p-{i+1} =
+2.p_i+1 = 0 (mod 7).
+For primes =2,4,5,6 (mod 7) then these can form longer chains..
+
+25 Feb 26
+I've written a chain-check.py script which finds residues of
+30k.2^i values and prints first occurence of divisor and
+cycle/period.
+
+seq 2670 60 10000 | xargs -I {} bash -c "echo \"{}: \"; ./chain-check.py {} 3 100 | less
+./times-two-mod.py -s 100 1410 0 | tr " " "\n" | xargs -I
+{} bash -c "echo {}-1 | bc" | xargs -L 1 openssl prime | less +/"is prime"
+
+Searching for chains of length 4:
+509 1229 1349 1409
+3539
+6449
+12119
+17159
+27479
+57839
+17141759
+
+Chain of length 5:
+96337919
+115998719
+
+Need to work on taking chain-check.py output and expanding
+out details of gaps in the divisor sequences which suggest
+existence of chains
