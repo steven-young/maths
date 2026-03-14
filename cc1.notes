@@ -373,3 +373,109 @@ Chain of length 5:
 Need to work on taking chain-check.py output and expanding
 out details of gaps in the divisor sequences which suggest
 existence of chains
+
+I’ve got scripts which allow me to estimate whether there might
+be Cunningham chains in a sequence of 30k.2^i-1 of values based
+on the cycle of residues for prime numbers
+
+26 Feb 26
+A quick search of the primality test details used by OpenSSL
+tells me I have a lot to learn about testing for primes
+Should load a module which implements a prime test rather than
+calling out to OpenSSL prime functionality
+What is the state of the art for finding factors?
+
+13 Mar 26
+Order of 2 mod p
+Note when \ord_p(2)=p-1 then 2 is a primitive root of p
+If q is a factor of Mersenne number M_p then 2 is not a primitive
+root of q.  The order of 2 mod q is p.  This includes the
+situation where the Mersenne number M_p is a prime
+A different observation is that primes p that have order of 2 mod
+p = n can be found in the prime factors of 2^n-1
+
+p \ord_p(2)
+3 2
+5 4
+7 3
+11 10
+13 12
+17 8
+19 18
+23 11
+29 28
+31 5
+37 36
+41 20
+43 14
+47 23
+53 52
+59 58
+61 60
+67 66
+71 35
+73 9
+79 39
+83 82
+89 11
+97 48
+101 100
+103 51
+107 106
+109 36
+113 28
+127 7
+
+151 15
+
+233 29
+
+241 24
+
+257 16
+
+331 30
+337 21
+
+601 25
+
+683 22
+
+1103 29
+
+1801 25
+
+2089 29
+
+2731 26
+
+8191 13
+
+43691 34
+
+65537 32
+
+122921 35
+
+131071 17
+
+178481 23
+
+262657 27
+
+524287 19
+
+599479 33
+
+2147483647 31
+
+n M_n factors
+2 3 -
+3 7 -
+5 31 -
+7 127 -
+11 2047 23,89
+13 8191 -
+17 131071 -
+19 524287 -
+
