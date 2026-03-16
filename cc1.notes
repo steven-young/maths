@@ -479,3 +479,21 @@ n M_n factors
 17 131071 -
 19 524287 -
 
+15 Mar 26
+Günter Löh, Long Chains Of Nearly Doubled Primes, Mathematics of
+Computation, vol. 53, no. 188, October 1989, pp. 751-759.
+Mentions twin prime chains as something that could be
+investigated.  Eg
+(5 7), (11 13)
+(29 31), (59 61)
+
+S_{+1}(6, 63419)
+p. 63420 mod p
+17 0
+31 0
+11 5 -> 7+10k
+
+S_{+1}(6, 127139)
+11 2 -> 10+10k
+13 0
+
