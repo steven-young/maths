@@ -561,16 +561,50 @@ When k=30,29,27,23,15 (mod 31) then 30k=1,2,4,8,16 (mod 31)
 respectively
 When k=72,68,9,18,36 (mod 127) then 30k=1,8,16,32,64 (mod 127)
 respectively
-When k=4,2,1,8,13 (mod 17) then 30k=1,9,13,15,16 (mod 17)
+When k=4,2,1,9,13 (mod 17) then 30k=1,9,13,15,16 (mod 17)
 respectively
 When k=7,10,9,5,8 (mod 11) then 30k=1,3,6,7,9 (mod 11)
 respectively 
 When k=10,7,14,5,15 (mod 23) then 30k=1,3,6,12,13 (mod 23)
 respectively
-When k=3,28,46,23,56 (mod 23) then 30k=1,39,45,67,78 (mod 89)
+When k=3,28,46,23,56 (mod 89) then 30k=1,39,45,67,78 (mod 89)
 respectively
-When k=10,11,5,12,9 (mod 13) then 30k=1,5,7,9,10 (mod 11)
+When k=10,11,5,12,9 (mod 13) then 30k=1,5,7,9,10 (mod 13)
 respectively 
+
+When k=7,12,4,13,8 (mod 19) then 30k=1,5,6,10,12 (mod 19)
+When k=26,17,13,27,34 (mod 41) then 30k=1,18,21,31,36 (mod 41)
+When k=1,11,15,20,22 (mod 29) then 30k=1,11,15,20,22 (mod 29)
+When k=21,36,35,29,33 (mod 37) then 30k=1,7,14,19,28 (mod 37)
+
+When k=33,19,38,31,37 (mod 43) then 30k=1,11,22,27,35 (mod 43)
+When k=11,33,36,38,29 (mod 47) then 30k=1,3,6,12,24 (mod 47)
+When k=23,18,19,38,19 (mod 53) then 30k=1,10,20,27,40 (mod 53)
+When k=2,30,1,15,37 (mod 59) then 30k=1,15,30,37,48 (mod 59)
+When k=59,15,60,38,30 (mod 61) then 30k=1,23,31,42,46 (mod 61)
+When k=38,43,61,19,55 (mod 67) then 30k=1,17,21,34,42 (mod 67)
+When k=45,50,29,58,25 (mod 71) then 30k=1,9,18,36,40 (mod 71)
+When k=56,40,28,14,7 (mod 73) then 30k=1,32,37,55,71 (mod 73)
+When k=29,66,53,27,54 (mod 79) then 30k=1,5,10,20,40 (mod 79)
+When k=36,9,23,18,46 (mod 83) then 30k=1,21,26,42,52 (mod 83)
+When k=55,76,38,29,58 (mod 97) then 30k=1,49,73,85,91 (mod 97)
+
+Manually generated a sieve list of values of k up to 10000
+
+Chains of length 5
+53639 107279 214559 429119 858239 Chain length 5 (1716479=19*61*1481)
+53849 107699 215399 430799 861599 Chain length 5 (1723199=983*1753 ..)
+61409 122819 245639 491279 982559 Chain length 5 (1965119=13*151163 ..)
+66749 133499 266999 533999 1067999 Chain length 5 (2135999=17*17*19*389 ..)
+143609 287219 574439 1148879 2297759 Chain length 5 (4595519=47*97777 ..)
+167729 335459 670919 1341839 2683679 Chain length 5 (5367359=17*157*2011 ..)
+186149 372299 744599 1489199 2978399 Chain length 5
+206369 412739 825479 1650959 3301919 Chain length 5
+268049 536099 1072199 2144399 4288799 Chain length 5
+296099 592199 1184399 2368799 4737599 Chain length 5
+
+63419 126839 253679 507359 1014719 2029439 Chain length 6
+127139 254279 508559 1017119 2034239 4068479 Chain length 6
 
 Should write a quick sieve script which can take the k=* (mod p)
 details above and generate possibilities for chains of length 5.
