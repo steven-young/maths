@@ -480,12 +480,17 @@ n M_n factors
 19 524287 -
 
 15 Mar 26
+S0025-5718-1989-0979939-8%202.pdf
 Günter Löh, Long Chains Of Nearly Doubled Primes, Mathematics of
 Computation, vol. 53, no. 188, October 1989, pp. 751-759.
 Mentions twin prime chains as something that could be
 investigated.  Eg
 (5 7), (11 13)
 (29 31), (59 61)
+
+ALLAN CUNNINGHAM, "On hyper-even numbers and on Fermat's
+numbers," Proc. London Math. Soc. (2), v. 5, 1907, pp. 237-274.
+Proceedings%20of%20London%20Math%20Soc%20-%201907%20-%20Cunningham%20-%20On%20Hyper%25E2%2580%2590Even%20Numbers%20and%20on%20Fermat%20s%20Numbers.pdf
 
 S_{+1}(6, 63419)
 p. 63420 mod p
@@ -496,4 +501,80 @@ p. 63420 mod p
 S_{+1}(6, 127139)
 11 2 -> 10+10k
 13 0
+
+D. H. LEHMER, "On certain chains of primes," Proc. London Math.
+Soc. (S), v. 14A, 1965, pp. 183-186. MR 31 #2222.
+Proceedings%20of%20London%20Math%20Soc%20-%201965%20-%20Lehmer%20-%20On%20Certain%20Chains%20of%20Primes.pdf
+S_{+1}(7, 1122659)
+S_{+1}(7, 2164229)
+S_{+1}(7, 2329469)
+S_{+1}(7, 10257809)
+S_{+1}(7, 10309889)
+S_{-1}(7, 16651)
+S_{-1}(7, 165901)
+
+CLAUDE LALOUT & JEAN MEEUS, "Nearly-doubled primes," J.
+Recreational Math., v. 13, 1980-81, pp. 30-35.
+S_{+1}(8, 19099919)
+S_{-1}(8, 15514861)
+
+S_{-1}(9, 857095381)
+
+TAKAO SUMIYAMA, "Cunningham chains of length 8 and 9," Abstracts
+Amer. Math. Soc, v. 4, 1983, p. 192, 83T-05-72.
+S_{+1}(9, 85864769)
+
+16 Mar 26
+I want to search the conditions for Cunningham chains of specific
+lengths and demonstrate that chains of these lengths can be found
+by searching through values which satisfy the conditions
+
+To state differently:
+I have determined conditions which are sufficient for chains of
+specific length.  I need to explore values which satisfy these
+conditions and examine rains for chains not being found. This
+will hopefully lead to improvements on the conditions that are
+necessary for chains of specific length
+
+17 Mar 26
+Search for chains of length 4 in the constrained space where
+30k=2 mod 31
+870+930k
+./cunningham-chain-type1.py -e 6449
+6449 12899 25799 51599 (103199=31*3329)
+
+Is there a sieve like method here that can find candidates for
+length j
+For chains of length 5, the following constraints are required:
+30k is not equivalent to the following
+1,8,16,32,64 mod 127
+1,9,13,15,16 mod 17
+1,32,37,55,64 mod 73
+1,3,6,7,9 mod 11
+1,3,6,12,13 mod 23
+1,39,45,67,78 mod 89
+1,5,7,9,10 mod 13
+
+Considering values of k where 30k satisfies the above:
+When k=4,1,2 (mod 7) then 30k=1,2,4 (mod 7) respectively
+When k=30,29,27,23,15 (mod 31) then 30k=1,2,4,8,16 (mod 31)
+respectively
+When k=72,68,9,18,36 (mod 127) then 30k=1,8,16,32,64 (mod 127)
+respectively
+When k=4,2,1,8,13 (mod 17) then 30k=1,9,13,15,16 (mod 17)
+respectively
+When k=7,10,9,5,8 (mod 11) then 30k=1,3,6,7,9 (mod 11)
+respectively 
+When k=10,7,14,5,15 (mod 23) then 30k=1,3,6,12,13 (mod 23)
+respectively
+When k=3,28,46,23,56 (mod 23) then 30k=1,39,45,67,78 (mod 89)
+respectively
+When k=10,11,5,12,9 (mod 13) then 30k=1,5,7,9,10 (mod 11)
+respectively 
+
+Should write a quick sieve script which can take the k=* (mod p)
+details above and generate possibilities for chains of length 5.
+To generalise, then, I can have a script which generates the mod
+values above for chains of arbitrary length and this would
+automate some generation of chain candidates.
 
