@@ -721,6 +721,6 @@ Investigating the factors of 30k.2^n-1
 139*30+19=4189
 
 21 Mar 26
-Can divisibility testing of the chain need done with composite
+Can divisibility testing of the chain be done with composite
 values as well as primes?
 Dynamic sieve functionality?
