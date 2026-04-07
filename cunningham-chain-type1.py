@@ -49,18 +49,19 @@ def cc1(num, args):
 	global cont_count
 	start = args.number
 	if is_prime(num):
-		prev = (num-1)//2
-		reported_start = False
-		while (prev >= 2 and num == (prev*2)+1):
-			if is_prime(prev):
-				if args.report_not_start and not reported_start:
-					print(f"{start} not start of chain: ", end='', flush=True)
-					reported_start = True
-				num=int(prev)
-				prev = (num-1)//2
-				cont_count += 1
-			else:
-				break
+		if args.check_prev:
+			prev = (num-1)//2
+			reported_start = False
+			while (prev >= 2 and num == (prev*2)+1):
+				if is_prime(prev):
+					if args.report_not_start and not reported_start:
+						print(f"{start} not start of chain: ", end='', flush=True)
+						reported_start = True
+					num=int(prev)
+					prev = (num-1)//2
+					cont_count += 1
+				else:
+					break
 		length = 0
 		while is_prime(num):
 			print(f"{num} ", end='', flush=True)
@@ -121,6 +122,7 @@ def main():
 	parser.add_argument("-n","--report_not_start",action="store_true",help="Report if chain doesn't start with number")
 	parser.add_argument("-c","--continuous",action="store_true",help="Continue along the chain for a few more steps")
 	parser.add_argument("--cont_count",type=int,default=20,help="Count of how long to continue...")
+	parser.add_argument("-p","--check_prev",action="store_true",help="Continue along the chain for a few more steps")
 	args = parser.parse_args()
 	num = args.number
 	if args.continuous:

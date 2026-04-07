@@ -357,7 +357,7 @@ seq 2670 60 10000 | xargs -I {} bash -c "echo \"{}: \"; ./chain-check.py {} 3 10
 {} bash -c "echo {}-1 | bc" | xargs -L 1 openssl prime | less +/"is prime"
 
 Searching for chains of length 4:
-509 1229 1349 1409
+509 1229 1409
 3539
 6449
 12119
@@ -724,3 +724,297 @@ Investigating the factors of 30k.2^n-1
 Can divisibility testing of the chain be done with composite
 values as well as primes?
 Dynamic sieve functionality?
+
+05 Apr 26
+I've done a load of manual calculations and am ready to
+establish an algorithm for finding primes which start a
+Cunningham Chains of at least length m
+If m is 1, then the answer to this trivial case is the
+list of prime numbers.  A different way to express this is
+to say, return the odd numbers that aren't composite.
+If m is 2, then we exclude prime numbers that are
+equivalent to 1 (modulo 6) and only consider the primes
+equivalent to 5 (modulo 6).  Further if we consider the
+values 6k-1, then we can sieve out values according to
+whether the values 6k-1 or 12k-1 are composite.  An
+algorithm that works here is to start with k=1 and if 6k-1
+or 12k-1 are both prime then this is a value of k that
+provides a Cunningham chain of length 2. Iterate to the
+next value of k=k+1.  If one or other of 6k-1 or 12k-1 is
+composite, then determine the prime factors, p,of the
+composite values and then consider the values of k, for
+general values of k, such that 6k-1 or 12k-1 are divisible
+by p.  This can be done in a general way by considering
+the values 6k.2^n where n in this case equals 0 or 1.  If
+6k or 6k.2 is equal to 1 modulo p then one of 6k-1 or
+12k-1 is divisible by p.  These values of k where p
+divides 6k-1 or 12k-1 can be removed from consideration
+for future values of k to be considered.
+Let’s work an example:
+Let k=1 then 6k-1 and 12k-1 are 5 and 11, both prime
+Iterate on k, so k=2, 11 and 23 are both prime
+k=3, 17 is prime but 35=5.7
+So consider prime factors 5 and 7.
+For p=5, when k=1 (mod 5) then 6k=1 (mod 5). When k=3 (mod
+5) then 12k=1 (mod 5).
+For p=7, when k=6 (mod 7) then 6k=1 (mod 7).
+When k=3 (mod 7) then 12k=1 (mod 7).
+Move to the next value of k, k=4, 23 and 47 are prime
+k=5, 29 and 59 are prime
+k=6 is removed from consideration since 6=1 (mod 5) and
+6=6 (mod 7)
+k=7, 41 and 83 are prime
+k=8 is removed since 8=3 (mod 5)
+k=9, 53 and 107 are prime
+k=10 removed (=3 (mod 7))
+k=11 removed (=1 (mod 5)
+k=12, 71 is prime but 143=11.13
+
+There are some refinements to this algorithm.
+For each Cunningham chain investigated from each value of
+k, the length of the chain should be checked past the
+value of m so that checking of length of chains can be
+recorded. The further elements of chains can be
+considered. For example for k=1 above the length of the
+chain being m=2 length can be considered, ie. The chain a
+5, 11 and continues 23, 47, and finishes there as the next
+value 95=5.19
+Also the elements of this chain also complete the
+investigation for later values of k so the work needn’t be
+fine for k=2, 4, 8
+For k=5 the chain starts 29, 59 then the next value
+119=7.17 is composite
+k=7, the chain proceeds 41, 83 (k=14), 167 (k=28),
+335=5.67 (k=56)
+k=9, chain proceeds 53, 107 (k=18), 215=5.43 (k=36)
+This implied keeping a list of k values which don't need
+to be considered since the Cunningham chain has already
+been determined.
+
+A further refinement is to make a note of the primes that have been
+encountered in the Cunningham chains, also the factors of
+the end-of-chain composite values and add these to sets of
+k values to be sieved.
+
+06 Apr 26
+m=2, consider 6k-1 and 12k-1 values as candidates for
+Cunningham chains
+k=1: CC: 5,11,23,47 (95=5.19)
+p=5: k=1,3 (mod 5)  3,6,8,11,13,16,18,21,23,26,28,
+p=11: k=1,2 (mod 11)  2,12,13,23,24,..
+p=23: k=2,4 (mod 23)  2,4,25,27,..
+p=47: k=4,8 (mod 47)  4,8,51,55,..
+p=19: k=8,16 (mod 19)  8,16,27,35,..
+k=2 considered by k=1
+k=3 skip 3 (mod 5)
+k=4 considered by k=1
+k=5: CC: 29,59 (119=7.17)
+p=29: k=5,17 (mod 29)  17,24,46,..
+p=59: k=5,10 (mod 59)  10,64,69,..
+p=7: k=3,6 (mod 7)  6,10,13,17,20,24,27,31,34,..
+p=17: k=3,10(mod 17)  10,20,27,37,44,..
+k=6 skip 1 (mod 5)
+k=7: CC: 41,83,167 (335=5.67)
+p=41: k=7,24 (mod 41)  24,48,65,..
+p=83: k=7,14 (mod 83)  14,90,97,..
+p=67, k=28,56 (mod 67)  28,56,95,143,..
+k=8 skip 3 (mod 5), 8 (mod 19)
+k=9: CC: 53, 107 (215=5.43)
+p=53: k=9,31 (mod 53)  31,62,84,..
+p=107: 9,18 (mod 107)  18,116,125,..
+p=43: 18,36 (mod 43)  18,36,61,79,..
+k=10 considered
+k=11 skip 1 (mod 5)
+k=12 skip 1 (mod 11)
+k=13 skip 3 (mod 5)
+k=14 considered by k=7
+k=15: CC: 89, 179, 359, 719, 1439, 2879 (5759=13.443)
+p=89: 15,52 (mod 89)
+p=179: 15,30 (mod 179)
+p=359: 30,60 (mod 359)
+p=719: 60,120 (mod 719)
+p=1439: 120,240 (mod 1439)
+p=2879: 240,480 (mod 2879)
+p=13: 11,12 (mod 13)  24,25,
+p=443: 37,74 (mod 443) 
+k=16 considered
+k=17 skip
+k=18 considered
+k=19: CC: 113,227 (455=5.7.13)
+
+k considered: 20, 28, 30, 36, 56, 60, 120, 240, 480, 960
+skip: 20,21, 23,24,25,26,27,28,
+
+p=5,7,11,13,17,19,23,29, 41,43,47,53,59, 67, 83,89, 107,
+179, 359, 443, 719, 1439, 2879,
+
+m=2, consider 6k-1 and 12k-1 values as candidates for Cunningham
+chains
+k=1: CC: 5, 11, 23, 47 (95=5.19)
+p=5: k=1,3 (mod 5)  3,6,8,11,13,16,18,21,23,26,28,
+p=11: k=1,2 (mod 11)  2,12,13,23,24,..
+p=23: k=2,4 (mod 23)  2,4,25,27,..
+p=47: k=4,8 (mod 47)  4,8,51,55,..
+p=19: k=8,16 (mod 19)  8,16,27,35,..
+k=2 considered by k=1
+k=3 skip 3 (mod 5) [17, 35=5.7]
+k=4 considered by k=1
+k=5: CC: 29, 59, 119=7.17
+p=29: k=5,17 (mod 29)  17,24,46,..
+p=59: k=5,10 (mod 59)  10,64,69,..
+p=7: k= 3,6 (mod 7)  6,10,13,17,20,24,27,31,34,..
+p=17: k=3,10(mod 17)  10,20,27,37,44,..
+k=6 skip 1 (mod 5)
+k=7: CC: 41, 83, 167 (335=5.67)
+p=41: k=7, 24 (mod 41)  24,48,65,..
+p=83: k=7,14 (mod 83)  14,90,97,..
+p=67, k=28,56 (mod 67)  28,56,95,143,..
+k=8 skip 3 (mod 5), 8 (mod 19)
+k=9: CC: 53, 107 (215=5.43)
+p=53: k=9,31 (mod 53)  31,62,84,..
+p=107: 9,18 (mod 107)  18,116,125,..
+p=43: 18,36 (mod 43)  18,36,61,79,..
+k=10 considered
+k=11 skip 1 (mod 5)
+k=12 skip 1 (mod 11)
+k=13 skip 3 (mod 5)
+k=14 considered by k=7
+k=15: CC: 89, 179, 359, 719, 1439, 2879 (5759=13.443)
+p=89: 15,52 (mod 89)
+p=179: 15,30 (mod 179)
+p=359: 30,60 (mod 359)
+p=719: 60,120 (mod 719)
+p=1439: 120,240 (mod 1439)
+p=2879: 240,480 (mod 2879)
+p=13: 11,12 (mod 13)  24,25, 37,38, 
+p=443: 37,74 (mod 443) 
+k=16 considered
+k=17 skip
+k=18 considered
+k=19 
+
+k considered: 20, 28, 30, 36, 56, 60, 120, 240, 480, 960
+k to skip: 
+
+p=5,7,11, 17,19,23,29, 41,43,47,53,59, 67, 83, 107,
+
+m=3, consider 6k-1, 12k-1, 24k-1 values as candidates for
+Cunningham chains of length 3.
+k=1: 5 11 23 47 Chain length 4 (95=5*19)
+p=5: 6k=1,3,4 (mod 5) k=1,3,4 (mod 5)
+p=11: 6k=,1,3,6 (mod 11) k=1,2,6 (mod 11)
+p=23: 6k=1,6,12 (mod 23) k=1,2,4 (mod 23)
+p=47: 6k=1,12,24 (mod 47) k=2,4,8 (mod 47)
+p=19: 6k=1,5,10 (mod 19) k=4,8,16 (mod 19)
+Skip: 2-4
+k=5: CC: 29 59 Chain length 2 (119=7*17)
+p=29: 6k=1,17,23 (mod 29) k=5,17,23 (mod 29)
+p=59: 6k=1,15,30 (mod 59) k=5,10,32 (mod 59)
+p=7: 6k=1,2,4 (mod 7) k=3,5,6 (mod 7)
+p=17: 6k=1,9,13 (mod 17) k=3,5,10 (mod 17)
+Skip: 6 
+k=7: CC: 41 83 167 Chain length 3 (335=5*67)
+p=41: 6k=1,21,31 (mod 41) k=7,12,24 (mod 41)
+p=67: 6k=1,17,34 (mod 67) k=14,28,56 (mod 67)
+Skip: 8-14
+k=15: CC: 89 179 359 719 1439 2879 Chain length 6 (5759=13*443)
+p=13: 6k=1,7,10 (mod 13) k=6,11,12 (mod 13)
+Skip: 16-84
+k=85: CC: 509 1019 2039 4079 Chain length 4 (8159=41*199)
+Skip: 86-105, 110
+p=5,7,11,13,17,19,23, 29, 47, 59, (89,179,359,443,719,1439,2879)
+
+m=4: consider 30k-1, 60k-1, 120k-1, 240k-1
+Consider p=7 which has order of 2 equal to 3
+p=7, 30k=1,2,4 k=1,2,4 (mod 7)
+k=3: CC: 89 179 359 719 1439 2879 Chain length 6 (5759=13*443)
+p=13: 30k=1,5,7,10 k=5,9,10,11 (mod 13)
+p=89: 30k=1,45,67,78 k=3,23,46,56 (mod 89)
+Skip 4-6 
+k=7: CC: (209=11.19)
+p=11, 30k=1,3,6,7 k=5,7,9,10 (mod 11)
+p=19, 30k=1,5,10,12 k=7,8,13,16 (mod 19)
+Skip 8-13
+k=14: CC: 419 839 Chain length 2 (1679=23*73)
+p=23: 30k=1,3,6,12 k=5,7,10,14 (mod 23)
+p=73: 30k=1,37,55,64 k=7,14,28,56 (mod 73)
+Skip 15-16
+k=17: CC: 509 1019 2039 4079 Chain length 4 (8159=41*199)
+p=41: 30k=1,21,31,36 k=13,26,27,34 (mod 41)
+Skip 18
+k=19: CC: 569 Chain length 1 (1139=17*67)
+p=17: 30k=1,9,13,15 k=1,2,4,9 (mod 17)
+p=67: 30k=1,17,34,42 k=19,38,43,55 (mod 67)
+Skip 20-40
+k=41: CC: 1229 2459 4919 9839 Chain length 4 (19679=11*1789)
+Skip 42-46
+k=47: CC: 1409 2819 5639 11279 Chain length 4 (22559=17*1327)
+Skip 48-57
+k=58: CC: (1739=37*47)
+p=37: 30k=1,14,19,28 k=21,29,33,35 (mod 37)
+p=47: 30k=1,6,12,24 k=11,19,29,38 (mod 47)
+k=59: CC: (1769=29*61)
+p=29: 30k=1,11,15,22 k=1,11,15,22 (mod 29)
+p=61: 30k=1,23,31,46 k=15,30,59,60 (mod 61)
+Skip 60-89
+k=90: CC: 2699 5399 10799 21599 Chain length 4 (43199=13*3323)
+k=91: CC: 2729 Chain length 1 (5459=53*103)
+p=53: 30k=1,20,27,40 k=19,23,36,38 (mod 53)
+Skip 92-117
+k=118: CC: 3539 7079 14159 28319 Chain length 4 (56639=11*19*271)
+Skip 119-123
+k=124: CC: 3719 Chain length 1 (7439=43*173)
+p=43: 30k=1,11,22,27 k=19,31,33,38 (mod 43)
+Skip 125-132
+k=133: CC: 3989 Chain length 1 (7979=79*101)
+p=79: 30k=1,10,20,40 k=27,29,53,54 (mod 79) 
+Skip 134-142 144 148-151 155-158 162- 192
+p=7,11,13,17,19,23,29, 37,41,(43),47,53, 61,67, 73,79, 89 (101
+103 173 179 199 271 359 419 443 509 569 719 839 1019 1229 1327
+1439 1789 2039 2459 2699 2729 2879 3323 3539 3719 4079 4919 5399
+7079 9839 10799 14159 21599 28319 )
+
+m=5
+p=7: 30k=1,2,4 k=1,2,4 (mod 7)
+k=3: CC: 89 179 359 719 1439 2879 Chain length 6 (5759=13*443)
+p=13: 30k=1,5,7,9,10 k=5,9,10,11,12 (mod 13)
+p=89: 30k=1,39,45,67,78 k=3,23,28,46,56 (mod 89)
+Skip 4-6
+k=7: CC: (209=11.19)
+p=11, 30k=1,3,6,7,9 k=5,7,8,9,10 (mod 11)
+p=19, 30k=1,5,6,10,12 k=4,7,8,13,16 (mod 19)
+Skip 8-13
+k=14: CC: 419 839 Chain length 2 (1679=23*73)
+p=23: 30k=1,3,6,12,13 k=5,7,10,14,15 (mod 23)
+p=73: 30k=1,32,37,55,64 k=7,14,28,40,56 (mod 73)
+Skip 15-16
+k=17: CC: 509 1019 2039 4079 Chain length 4 (8159=41*199)
+p=41: 30k=1,18,21,31,36 k=13,17,26,27,34 (mod 41)
+Skip 18
+k=19: CC: 569 Chain length 1 (1139=17*67)
+p=17: 30k=1,9,13,15,16 k=1,2,4,9,13 (mod 17)
+p=67: 30k=1,17,21,34,42 k=19,38,43,55,61 (mod 67)
+Skip 20-57
+k=58: CC: (1739=37*47)
+p=37: 30k=1,7,14,19,28 k=21,29,33,35,36 (mod 37)
+p=47: 30k=1,3,6,12,24 k=11,19,29,33,38 (mod 47)
+k=59: CC: (1769=29*61)
+p=29: 30k=1,11,15,20,22 k=1,11,15,20,22 (mod 29)
+p=61: 30k=1,23,31,42,46 k=15,30,38,59,60 (mod 61)
+Skip 60-90
+k=91: CC: 2729 Chain length 1 (5459=53*103)
+p=53: 30k=1,10,20,27,40 k=18,19,23,36,38 (mod 53)
+Skip 92-123
+k=124: CC: 3719 Chain length 1 (7439=43*173)
+p=43: 30k=1,11,22,27,35 k=19,31,33,37,38 (mod 43)
+Skip 125-132
+k=133: CC: 3989 Chain length 1 (7979=79*101)
+p=79: 30k=1,5,10,20,40 k=27,29,53,54,66 (mod 79) 
+
+
+p=7,11,13,17,19, 37, 47, 67, 89, (..)
+
+Spent time working through the algorithm for finding Cunningham
+chaos of type 1 of length m where m=2, 3, 4, then 5. I think I’m
+ready to implement the algorithm
+
