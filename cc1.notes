@@ -796,6 +796,95 @@ encountered in the Cunningham chains, also the factors of
 the end-of-chain composite values and add these to sets of
 k values to be sieved.
 
+Cunningham chain script proposal
+Create a list of candidate primes which could start chains of a
+certain length
+The script is based on analysis of 30k.2^n-1 values based on the
+residues of 30k.2^n modulo p and noting that for primes where 2
+is a primitive root, then when p does not divide 30k.2^n then the
+values of 30k.2^n form a cycle of residues with period p-1 and
+when 30k.2^n is equivalent to 1 (mod p) then the 30k.2^n-1 value
+is divisible by p, so the Cunningham chain then ends.
+
+Order (mod 2) p
+2	3
+3	7
+4	5
+5	31
+6	-
+7	127
+8	17
+9	73
+10	11
+11	23 89
+12	13
+..
+
+Every prime can generate a Cunningham chain of length 1
+Which primes are excluded for chains of length 2, 3, ..?
+When p=1 (mod 6), then 2p+1=3 (mod 6) and is composite
+All primes p=1 (mod 6) are excluded as candidates for CC of
+length 2
+
+For CC_1 of length 3, consider the values p=5 (mod 6) or
+alternatively 6k.2^n-1
+If we consider the sequence 6k.2^n (mod 7) then the CC_1 that
+6k-1 can form will be at most length 2
+If we consider 6k (mod 5) noting that 2,4,3,1 is the cycle of
+powers of 2 (mod 5), then if 6k=4,3,1 (mod 5) then the CC_1
+length can't be 3
+
+For chains of length 4, then only if 6k (mod 5) = 0 will a chain
+of length 4 be possible
+So we can restrict ourselves to considering 30.2^n values
+As k increases we will want to consider other primes
+
+Return to CC_1 of length 3
+6k=2,4,1 (mod 7) k=5,3,6 (mod 7)
+6k=4,3,1 (mod 5) k=4,3,1 (mod 5)
+6k=8,16,1 (mod 31) k=22,13,26 (mod 31)
+6k=32,64,1 (mod 127) k=90,53,106 (mod 127)
+6k=13,9,1 (mod 17) k=5,10,31 (mod 17)
+6k=55,32,1 (mod 73)
+6k=3,6,1 (mod 11) k=6,1,2 (mod 11)
+
+2,5,11,23,47 (5)
+41,83,167 (3)
+89,179,.. (6)
+509,1019,2039,4079 (4)
+1031,2063,4127
+1229 (4)
+1409 (4)
+1451 (3)
+1481 (3)
+1511 (3)
+1811 (3)
+1899 (3)
+1901 (3)
+1931 (3)
+
+For chains of length 4, we need to move to 30k.2^n-1 values
+Start off with
+30k=1,2,4 (mod 7) k=1,2,4 (mod 7)
+
+30k=1,7,10,5 (mod 13) k=10,5,9,11 (mod 13)
+30k=1,10,5,12 (mod 19) k=7,8,13,16 (mod 19)
+30k=1,12,6,3 (mod 23) k=5,7,13,9 (mod 23)
+30k=1,9,13,15 (mod 17) k=4,2,1,9(mod 17)
+30k=1,6,3,7 (mod 11) k=7,9,10,5 (mod 11)
+30k=1,23,31,36 (mod 41) k=26,13,27,34 (mod 41)
+(mod 29)
+(mod 37)
+(mod 31)
+(mod 53)
+(mod 67)
+(mod 89)
+(mod 43)
+(mod 79)
+
+A different analysis that could be done is: What values of p
+produce Cunningham chains of length n?
+
 06 Apr 26
 m=2, consider 6k-1 and 12k-1 values as candidates for
 Cunningham chains
