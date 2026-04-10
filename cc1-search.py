@@ -67,13 +67,30 @@ def main():
 		print(f"Chain length currently limited to {max(primitive_root_primes)}")
 		exit(1)
 	# Establish initial sieve considering primes with order of 2 mod p less than or equal to m
-	order_2_mod_p=((),(),(3,),(7,),(5,),(31,),(),(127,),(17,),(73,),(11,),(23,89),(13,),(8191,),(43,))
-	for o in order_2_mod_p:
-		print(",".join(map(str,o)))
+	sieve_list = []
+	order_2_mod_p=((),(),(),(7,),(),(31,),(),(127,),(17,),(73,),(),(23,89),(),(8191,),(43,),(151,),(257,),(131071,),(),(524287,),(41,),(337,),(683,),(47,178481),(241,),(601,1801),(2731,),(262657,),(113,),(233,1103,2089),(331,),(2147483647,),(65537,),(599479,),(43691,),(71,122921),(109,))
+	for i in range(3,m):
+		for p in order_2_mod_p[i]:
+			# Construct a set of values mod p where k*mul*2^j-1 for j in range(i)
+			mk_list = [1]
+			for j in range(2,i+1):
+				if mk_list[j-2]%2 == 0:
+					mk_list.append(mk_list[j-2]//2)
+				else:
+					mk_list.append((mk_list[j-2]+p)//2)
+			#print("mk_list = ["+",".join(map(str,mk_list))+"]")
+			index_list = list(range(1,p+1))
+			mulk_modp_list = [ mul * i % p for i in index_list]
+			print("mulk_modp_list = ["+",".join(map(str,mulk_modp_list))+"]")
+			k_list = []
+			for v in mk_list:
+				k_list.append(mulk_modp_list.index(v)+1)
+			sieve_list.append([p, k_list])
+			print("sieve_list = ", sieve_list)
 
 	# Start searching
-
 	k=1
+	# Skip k values depending on sieve_list
 	while True:
 		num=mul*k-1
 		result=cc1(num)
