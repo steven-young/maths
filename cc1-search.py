@@ -4,6 +4,8 @@ import math
 import subprocess
 import os
 
+LINE_CLEAR = '\x1b[2K'
+
 def is_prime(n):
 	result = subprocess.run(["openssl","prime", str(n)], stdout=subprocess.PIPE)
 	output= str(result.stdout)
@@ -45,9 +47,27 @@ def cc1(num):
 	result.factors=prime_factors(num)
 	return result
 
+def k_mod(p,i,mul):
+	mk_list = [1]
+	for j in range(2,i+1):
+		if mk_list[j-2]%2 == 0:
+			mk_list.append(mk_list[j-2]//2)
+		else:
+			mk_list.append((mk_list[j-2]+p)//2)
+	#print("p =", p, "mk_list =", mk_list)
+	#index_list = list(range(1,p+1))
+	#mulk_modp_list = [ mul * i % p for i in index_list]
+	#print("mulk_modp_list = ", mulk_modp_list)
+	k_list = []
+	k1 = pow(mul, p-2, mod=p)
+	for v in mk_list:
+		k_list.append(k1*v%p)
+	return k_list
+
 def main():
 	parser = argparse.ArgumentParser(description="Search for Cunningham chains (type 1) of length m.")
 	parser.add_argument("length", type=int, help="Length of chain m")
+	parser.add_argument("-p","--progress",action="store_true",help="Print progress")
 	args = parser.parse_args()
 	m = args.length
 	if m == 1:
@@ -66,38 +86,56 @@ def main():
 	else:
 		print(f"Chain length currently limited to {max(primitive_root_primes)}")
 		exit(1)
+
 	# Establish initial sieve considering primes with order of 2 mod p less than or equal to m
-	sieve_list = []
+	sieve_mod = {}
+	sieve_to = {}
+	sieve_cur = {}
 	order_2_mod_p=((),(),(),(7,),(),(31,),(),(127,),(17,),(73,),(),(23,89),(),(8191,),(43,),(151,),(257,),(131071,),(),(524287,),(41,),(337,),(683,),(47,178481),(241,),(601,1801),(2731,),(262657,),(113,),(233,1103,2089),(331,),(2147483647,),(65537,),(599479,),(43691,),(71,122921),(109,))
 	for i in range(3,m):
 		for p in order_2_mod_p[i]:
 			# Construct a set of values mod p where k*mul*2^j-1 for j in range(i)
-			mk_list = [1]
-			for j in range(2,i+1):
-				if mk_list[j-2]%2 == 0:
-					mk_list.append(mk_list[j-2]//2)
-				else:
-					mk_list.append((mk_list[j-2]+p)//2)
-			#print("mk_list = ["+",".join(map(str,mk_list))+"]")
-			index_list = list(range(1,p+1))
-			mulk_modp_list = [ mul * i % p for i in index_list]
-			print("mulk_modp_list = ["+",".join(map(str,mulk_modp_list))+"]")
-			k_list = []
-			for v in mk_list:
-				k_list.append(mulk_modp_list.index(v)+1)
-			sieve_list.append([p, k_list])
-			print("sieve_list = ", sieve_list)
+			if args.progress:
+				print(end=LINE_CLEAR)
+				print(f"k=0 ss={len(sieve_to)} Adding p={p} to sieve",end='\r')
+			sieve_mod[p] = k_mod(p,i,mul)
+			sieve_to[p] = 0
+			#print("sieve_dict = ", sieve_dict)
 
 	# Start searching
 	k=1
-	# Skip k values depending on sieve_list
+	sieve_vals=set()
 	while True:
+		# Skip k values depending on sieve_list
+		prev_k=k
+		while any(s<=k for s in iter(sieve_to.values())):
+			for p in sieve_to:
+				if k >= sieve_to[p]:
+					if args.progress:
+						print(end=LINE_CLEAR)
+						print(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Updating sieve values for p={p}",end='\r')
+					sieve_cur[p] = [(k//p)*p+i for i in sieve_mod[p]]
+					sieve_to[p] = (k//p + 1)*p
+					#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
+					for v in sieve_cur[p]:
+						sieve_vals.add(v)
+			while k in sieve_vals:
+				k += 1
+		sieve_vals.difference_update(range(prev_k,k+1))
 		num=mul*k-1
 		result=cc1(num)
-		print(f"{num}: "+" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")")
+		if len(result.chain)>=m:
+			print(f"k = {k}: ", end='')
+			print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
 		for p in set(result.chain+result.factors):
+			if args.progress:
+				print(end=LINE_CLEAR)
+				print(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Adding p={p} to sieve",end='\r')
 			# Process each prime
-			print(f"{p}")
+			sieve_to[p] = k
+			sieve_mod[p] = k_mod(p,m,mul)
+		#print("sieve_dict = ", sieve_dict)
+		k += 1
 
 if __name__ == "__main__":
 	main()
