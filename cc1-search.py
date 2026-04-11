@@ -3,6 +3,7 @@ import argparse
 import math
 import subprocess
 import os
+from primefac import isprime,primefac 
 
 LINE_CLEAR = '\x1b[2K'
 
@@ -40,11 +41,11 @@ class CCResult:
 def cc1(num):
 	start = num
 	result = CCResult()
-	while is_prime(num):
+	while isprime(num):
 		result.chain += [num]
 		num = 2*num+1
 	result.end=num
-	result.factors=prime_factors(num)
+	result.factors=list(primefac(num))
 	return result
 
 def k_mod(p,i,mul):
@@ -123,7 +124,10 @@ def main():
 				k += 1
 		sieve_vals.difference_update(range(prev_k,k+1))
 		num=mul*k-1
-		result=cc1(num)
+		if args.progress:
+			print(end=LINE_CLEAR)
+			print(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Checking CC1({num})",end='\r')
+			result=cc1(num)
 		if len(result.chain)>=m:
 			print(f"k = {k}: ", end='')
 			print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
