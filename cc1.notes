@@ -1174,7 +1174,9 @@ higher lengths.
 I want some status output which tells me where the current
 calculation is up to.
 
-Found primefac python module and incorporated it into the code
+I’ve had good success with implementing the cc1-search.py script
+Replaced the isprime and prime factors functions with functions
+from the primefac module 
 
 k = 410490: 12314699 24629399 49258799 98517599 197035199 394070399 788140799 length: 7 (1576281599=17*92722447)
 k = 467677: 14030309 28060619 56121239 112242479 224484959 448969919 897939839 length: 7 (1795879679=11*199*820411)
@@ -1213,6 +1215,26 @@ k = 1128302168: 372339715439 744679430879 1489358861759 2978717723519 5957435447
 k = 1671675414: 551652886619 1103305773239 2206611546479 4413223092959 8826446185919 17652892371839 35305784743679 70611569487359 141223138974719 282446277949439 length: 10 (564892555898879=13*59*593*1241983409)
 k = 1680873571: 554688278429 1109376556859 2218753113719 4437506227439 8875012454879 17750024909759 35500049819519 71000099639039 142000199278079 284000398556159 568000797112319 1136001594224639 length: 12 (2272003188449279=19*119579115181541)
 k = 1730004591: 570901515029 1141803030059 2283606060119 4567212120239 9134424240479 18268848480959 36537696961919 73075393923839 146150787847679 292301575695359 length: 10 (584603151390719=19*1481*20775548221)
+
+12 Apr 26
+I’ve realised that my algorithm for CC_1 search doesn’t have to
+start at k=1 but could begin at arbitrary values of k
+
+Added a --start_k option to the script
+I’m interested now in the profession of the algorithm for larger
+values of m. The “encountered “ primes from the candidate valid
+for beginnings of Cunningham chains doesn’t seem to grow very
+quickly. What is the distribution of the primes that are
+encountered?  What is the distribution of the candidate chain
+lengths?
+
+For larger values of m the gaps between k values which provide
+chains of length m gets large.  The gaps in sieve gets large as
+well.  The time taken in the algorithm for determining the next
+value candidate value could possibly be improved
+
+Can do some investigation of the gaps in the sieves of k values and
+the conditions which lead to larger gaps in the k values.
 
 m=11: echo 665043081119/330 | bc
 2015282063
