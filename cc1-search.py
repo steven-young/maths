@@ -68,6 +68,7 @@ def k_mod(p,i,mul):
 def main():
 	parser = argparse.ArgumentParser(description="Search for Cunningham chains (type 1) of length m.")
 	parser.add_argument("length", type=int, help="Length of chain m")
+	parser.add_argument("-k","--start_k", type=int,default=1,help="Start k value")
 	parser.add_argument("-p","--progress",action="store_true",help="Print progress")
 	args = parser.parse_args()
 	m = args.length
@@ -104,7 +105,7 @@ def main():
 			#print("sieve_dict = ", sieve_dict)
 
 	# Start searching
-	k=1
+	k=args.start_k
 	sieve_vals=set()
 	while True:
 		# Skip k values depending on sieve_list
