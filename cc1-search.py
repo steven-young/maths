@@ -3,6 +3,7 @@ import argparse
 import math
 import subprocess
 import os
+import sys
 from primefac import isprime,primefac 
 
 LINE_CLEAR = '\x1b[2K'
@@ -65,6 +66,9 @@ def k_mod(p,i,mul):
 		k_list.append(k1*v%p)
 	return k_list
 
+def eprint(*args, **kwargs):
+	print(*args, file=sys.stderr, **kwargs)
+
 def main():
 	parser = argparse.ArgumentParser(description="Search for Cunningham chains (type 1) of length m.")
 	parser.add_argument("length", type=int, help="Length of chain m")
@@ -98,8 +102,8 @@ def main():
 		for p in order_2_mod_p[i]:
 			# Construct a set of values mod p where k*mul*2^j-1 for j in range(i)
 			if args.progress:
-				print(end=LINE_CLEAR)
-				print(f"k=0 ss={len(sieve_to)} Adding p={p} to sieve",end='\r')
+				eprint(end=LINE_CLEAR)
+				eprint(f"k=0 ss={len(sieve_to)} Adding p={p} to sieve",end='\r')
 			sieve_mod[p] = k_mod(p,i,mul)
 			sieve_to[p] = 0
 			#print("sieve_dict = ", sieve_dict)
@@ -114,8 +118,8 @@ def main():
 			for p in sieve_to:
 				if k >= sieve_to[p]:
 					if args.progress:
-						print(end=LINE_CLEAR)
-						print(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Updating sieve values for p={p}",end='\r')
+						eprint(end=LINE_CLEAR)
+						eprint(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Updating sieve values for p={p}",end='\r')
 					sieve_cur[p] = [(k//p)*p+i for i in sieve_mod[p]]
 					sieve_to[p] = (k//p + 1)*p
 					#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
@@ -126,16 +130,16 @@ def main():
 		sieve_vals.difference_update(range(prev_k,k+1))
 		num=mul*k-1
 		if args.progress:
-			print(end=LINE_CLEAR)
-			print(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Checking CC1({num})",end='\r')
+			eprint(end=LINE_CLEAR)
+			eprint(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Checking CC1({num})",end='\r')
 			result=cc1(num)
 		if len(result.chain)>=m:
 			print(f"k = {k}: ", end='')
 			print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
 		for p in set(result.chain+result.factors):
 			if args.progress:
-				print(end=LINE_CLEAR)
-				print(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Adding p={p} to sieve",end='\r')
+				eprint(end=LINE_CLEAR)
+				eprint(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Adding p={p} to sieve",end='\r')
 			# Process each prime
 			sieve_to[p] = k
 			sieve_mod[p] = k_mod(p,m,mul)
