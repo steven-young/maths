@@ -480,9 +480,11 @@ n M_n factors
 19 524287 -
 
 15 Mar 26
-S0025-5718-1989-0979939-8%202.pdf
 Günter Löh, Long Chains Of Nearly Doubled Primes, Mathematics of
 Computation, vol. 53, no. 188, October 1989, pp. 751-759.
+https://www.jstor.org/stable/2008735
+S0025-5718-1989-0979939-8.pdf
+
 Mentions twin prime chains as something that could be
 investigated.  Eg
 (5 7), (11 13)
@@ -490,7 +492,9 @@ investigated.  Eg
 
 ALLAN CUNNINGHAM, "On hyper-even numbers and on Fermat's
 numbers," Proc. London Math. Soc. (2), v. 5, 1907, pp. 237-274.
-Proceedings%20of%20London%20Math%20Soc%20-%201907%20-%20Cunningham%20-%20On%20Hyper%25E2%2580%2590Even%20Numbers%20and%20on%20Fermat%20s%20Numbers.pdf
+https://londmathsoc.onlinelibrary.wiley.com/doi/epdf/10.1112/plms/s2-5.1.237
+https://londmathsoc.onlinelibrary.wiley.com/doi/pdfdirect/10.1112/plms/s2-5.1.237?download=true&campaigns=%5B%7B%22position%22%3A%22ereader-last-page%22%2C%22uri%22%3A%22uri%3A707b1a3c-73e6-4188-b21f-2b05b70307d8%22%7D%2C%7B%22position%22%3A%22ereader-first-page%22%2C%22uri%22%3A%22uri%3A7691ea89-90f5-4086-9241-486673caed61%22%7D%5D
+Proceedings%20of%20London%20Math%20Soc%20-%201907%20-%20Cunningham%20-%20On%20Hyper‐Even%20Numbers%20and%20on%20Fermat%20s%20Numbers.pdf
 
 S_{+1}(6, 63419)
 p. 63420 mod p
@@ -504,7 +508,9 @@ S_{+1}(6, 127139)
 
 D. H. LEHMER, "On certain chains of primes," Proc. London Math.
 Soc. (S), v. 14A, 1965, pp. 183-186. MR 31 #2222.
+https://londmathsoc.onlinelibrary.wiley.com/doi/pdf/10.1112/plms/s3-14A.1.183
 Proceedings%20of%20London%20Math%20Soc%20-%201965%20-%20Lehmer%20-%20On%20Certain%20Chains%20of%20Primes.pdf
+
 S_{+1}(7, 1122659)
 S_{+1}(7, 2164229)
 S_{+1}(7, 2329469)
@@ -515,6 +521,7 @@ S_{-1}(7, 165901)
 
 CLAUDE LALOUT & JEAN MEEUS, "Nearly-doubled primes," J.
 Recreational Math., v. 13, 1980-81, pp. 30-35.
+https://www.jstor.org/stable/2008735
 S_{+1}(8, 19099919)
 S_{-1}(8, 15514861)
 
@@ -1299,4 +1306,36 @@ value candidate value could possibly be improved
 
 Can do some investigation of the gaps in the sieves of k values and
 the conditions which lead to larger gaps in the k values.
+
+16 Apr 26
+An observation about the algorithm is that as the sieve size
+increases the checking of "what is the next value of k" takes
+longer and slows down the algorithm.  Need a more efficient sieve
+generator
+
+I'm still searching for the next chain of length 11.  The
+cc1-search.py -p 10 process has been running for a while.  Now at
+k=5639106260 and only the one chain of length 11 found.
+
+17 Apr 26
+I have thoughts about how to improve the processing of sieve set
+members.
+sieve_vals is a set
+sieve_to is a collection
+All the values of sieve_to.values() are compared to the current k
+value and if any of the values are less than k, then values are
+added to the sieve_vals set.
+The logic and flow of the script needs checking and improvement.
+I think the sieve_to data structure, might be better off
+being set up as an ordered list and so the lowest sieve_to value
+is immediately known and values can be added to the sieve_vals
+until the sieve_to values are all greater than k.
+
+I want to analyse the algorithm as it can be applied to values of
+m <= 13, where the value of the multiplier is small compared to
+the known smallest start values for chains for these values of m
+are in the hundreds of billions and the current searching speed
+looks like about a billion per day.
+
+I want to look over Cunningham chain references
 

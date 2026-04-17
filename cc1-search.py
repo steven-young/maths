@@ -4,9 +4,21 @@ import math
 import subprocess
 import os
 import sys
+import signal
 from primefac import isprime,primefac 
 
 LINE_CLEAR = '\x1b[2K'
+
+k=1
+
+def eprint(*args, **kwargs):
+	print(*args, file=sys.stderr, **kwargs)
+
+def signal_handler(sig, fram):
+	global k
+	print()
+	print(f"k={k}")
+	sys.exit(0)
 
 def is_prime(n):
 	result = subprocess.run(["openssl","prime", str(n)], stdout=subprocess.PIPE)
@@ -66,10 +78,11 @@ def k_mod(p,i,mul):
 		k_list.append(k1*v%p)
 	return k_list
 
-def eprint(*args, **kwargs):
-	print(*args, file=sys.stderr, **kwargs)
-
 def main():
+	global k
+	signal.signal(signal.SIGINT, signal_handler)	
+	signal.signal(signal.SIGQUIT, signal_handler)	
+	signal.signal(signal.SIGTERM, signal_handler)	
 	parser = argparse.ArgumentParser(description="Search for Cunningham chains (type 1) of length m.")
 	parser.add_argument("length", type=int, help="Length of chain m")
 	parser.add_argument("-k","--start_k", type=int,default=1,help="Start k value")
