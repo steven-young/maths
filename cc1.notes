@@ -1245,6 +1245,7 @@ k = 263103412: 7893102359 15786204719 31572409439 63144818879 126289637759 25257
 k = 263641307: 7909239209 15818478419 31636956839 63273913679 126547827359 253095654719 506191309439 1012382618879 length: 8 (2024765237759=11*19*131*73953221)
 k = 267481910: 8024457299 16048914599 32097829199 64195658399 128391316799 256782633599 513565267199 1027130534399 length: 8 (2054261068799=19*37*347*457*18427)
 k = 285285157: 8558554709 17117109419 34234218839 68468437679 136936875359 273873750719 547747501439 1095495002879 length: 8 (2190990005759=19*23*839*5975813)
+k = 345943730: 10378311899 20756623799 41513247599 83026495199 166052990399 332105980799 664211961599 1328423923199 2656847846399 length: 9 (5313695692799=13*23*59*97*211*14717)
 
 echo 26089808579/330 | bc
 79060025
@@ -1372,3 +1373,20 @@ looks like about a billion per day.
 
 I want to look over Cunningham chain references
 
+19 Apr 26
+Lehrer, 1965 On Certain Chains Of Primes 
+Defines prime chains of length \lambda, p_k = a p_{k-1} + b
+Provides an example of chain of length 7 for (a,b)=(2,1), namely
+the chain starting at 1122659
+Discussed conjecture that for every \lambda and appropriate (a,b)
+there exists a prime chain of length \lambda
+Observation that it hasn’t been proved there are an infinitive of
+chains of length 2
+The author hasn’t found a chain of length 8
+Theorem 1 on conditions for leaders of chains
+
+Adding sieve_size_limit option to cc1-search.py
+Should add to cc1-search.py to search in the space of chains of a
+certain length but print out chains which are shorter.  Further,
+force the init_sieve_{mod,to} and mul values to satisfy chains of
+a certain length m, but

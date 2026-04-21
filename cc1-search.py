@@ -86,9 +86,16 @@ def main():
 	parser = argparse.ArgumentParser(description="Search for Cunningham chains (type 1) of length m.")
 	parser.add_argument("length", type=int, help="Length of chain m")
 	parser.add_argument("-k","--start_k", type=int,default=1,help="Start k value")
+	parser.add_argument("-l","--limit_sieve_size",action="store_true",help="Limit sieve size")
+	parser.add_argument("-s","--sieve_size_limit", type=int,default=5000,help="Sieve size limit")
 	parser.add_argument("-p","--progress",action="store_true",help="Print progress")
+	parser.add_argument("-n","--shorter_chain_length", type=int,default=0,help="Shorter chain length to print")
 	args = parser.parse_args()
 	m = args.length
+	if (args.shorter_chain_length == 0):
+		n = m
+	else:
+		n = args.shorter_chain_length
 	if m == 1:
 		print("All primes are candidates for chains of length 1")
 	# Check size of m against primes which have 2 as a primitive
@@ -107,6 +114,8 @@ def main():
 		exit(1)
 
 	# Establish initial sieve considering primes with order of 2 mod p less than or equal to m
+	init_sieve_mod = {}
+	init_sieve_to = {}
 	sieve_mod = {}
 	sieve_to = {}
 	sieve_cur = {}
@@ -117,13 +126,15 @@ def main():
 			if args.progress:
 				eprint(end=LINE_CLEAR)
 				eprint(f"k=0 ss={len(sieve_to)} Adding p={p} to sieve",end='\r')
-			sieve_mod[p] = k_mod(p,i,mul)
-			sieve_to[p] = 0
+			init_sieve_mod[p] = k_mod(p,i,mul)
+			init_sieve_to[p] = 0
 			#print("sieve_dict = ", sieve_dict)
 
 	# Start searching
 	k=args.start_k
 	sieve_vals=set()
+	sieve_mod = dict(init_sieve_mod)
+	sieve_to = dict(init_sieve_to)
 	while True:
 		# Skip k values depending on sieve_list
 		prev_k=k
@@ -145,8 +156,8 @@ def main():
 		if args.progress:
 			eprint(end=LINE_CLEAR)
 			eprint(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Checking CC1({num})",end='\r')
-			result=cc1(num)
-		if len(result.chain)>=m:
+		result=cc1(num)
+		if len(result.chain)>=n:
 			print(f"k = {k}: ", end='')
 			print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
 		for p in set(result.chain+result.factors):
@@ -155,7 +166,12 @@ def main():
 				eprint(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Adding p={p} to sieve",end='\r')
 			# Process each prime
 			sieve_to[p] = k
-			sieve_mod[p] = k_mod(p,m,mul)
+			sieve_mod[p] = k_mod(p,n,mul)
+			if ( args.limit_sieve_size and (len(sieve_to)>args.sieve_size_limit) ):
+				sieve_mod = dict(init_sieve_mod)
+				sieve_to = dict(init_sieve_to)
+				eprint();
+				eprint("Sieve size limit reached. Resetting sieve to initial values")
 		#print("sieve_dict = ", sieve_dict)
 		k += 1
 
