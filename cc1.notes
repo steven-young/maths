@@ -1416,8 +1416,20 @@ Rerunning cc1-search.py 10 since it appears to have missed this chain.
 ./cc1-search.py -p 10 -k 2186177168 | tee -a /tmp/cc1-search.10a
 
 #./cc1-search.py -p 10 -k 8191378149 | tee -a /tmp/cc1-search.10
-#./cc1-search.py -p 10 -k 2190350589 | tee -a /tmp/cc1-search.10a
+echo 8191378149*330 | bc
+2703154789170
+./cc1-search.py -p 10 -k 2190350589 | tee -a /tmp/cc1-search.10a
+# Waiting to reach for k=3361747142, then to pass 3768308859
+
 #./cc1-search.py -p 12 -n 10 -k 900724900 -l | tee -a /tmp/cc1-search.12-4
+echo 900724900*4290 | bc
+3864109821000
 #./cc1-search.py -p 18 -n 10 -k 401982180 -l | tee -a /tmp/cc1-search.18-4
 #./cc1-search.py 28 -p -n 9 -l -k 427202098 | tee -a /tmp/cc1-search.28-4
+
+Another chain of length 11:
+/tmp/cc1-search.18-4:k = 471590419: 38439335052689 76878670105379 153757340210759 307514680421519 615029360843039 1230058721686079 2460117443372159 4920234886744319 9840469773488639 19680939546977279 39361879093954559 length: 11 (78723758187909119=29*197*2069*43991*151397)
+
+Started
+./cc1-search.py 36 -p -n 4 -l | tee -a /tmp/cc1-search.36-4
 
