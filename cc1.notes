@@ -1451,3 +1451,39 @@ k = 3361747142: 1109376556859 2218753113719 4437506227439 8875012454879 17750024
 
 The cc1-search.py script should check whether earlier elements of
 the chain are prime.
+
+Günter Löh, Long Chains Of Nearly Doubled Primes, 1989
+There was an errors in Lehmer, 1965 list of chains. For the chain
+of type 2 starting 67651 this isn’t length 7 as the fifth item is
+composite
+Lalout and Meeus reported first chains of length 8
+Löh’s conditions for existence of chains in section 2 needs
+attention and comparison to my method
+List of complete chains of length 10-12 below certain limits
+Löh’s investigation of twin prime chains is interesting
+
+24 Apr 26
+Worked on order of 2 mod p details, extracting factors of
+Mersenne numbers
+Had a bash oneliner which passed 2^m-1 values to factor program:
+for ((i=71; i<1000; i++)) do read; echo -en
+ "$i:\t"; echo -e "(2^$i-1)" | bc | xargs factor | sed 's/: /=/'
+ | sed 's/ /*/g
+ '; done | tee -a order-2-mod-p
+ I found a web page which had factors of larger Mersenne numbers:
+ https://planetmath.org/tableoffactorsofsmallmersennenumbers
+ Used this to get past p=137 and 149
+ Currently stuck calculating factors of 159 (though this isn't a
+ prime and I could apply various rules which tell me that the
+ factors of the 2^k-1 where k are divisors of 159 are factors of
+ 2^159-1.
+
+ I should get on and fix the cc1-search.py script to improve the
+ determination of next values of the sieve.
+
+ I should work on analysis of  Cunningham chains of type 2 and
+ also the generalisations considered by Lehmer to a.p_k+b where
+ (a,b) = (2,1) or (2,-1) are the Cunningham chains, but when a >
+ 2, then primitive roots of values larger than 2 come into play
+ and different approaches to search scripts for general chains
+ might be needed.
