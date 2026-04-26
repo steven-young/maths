@@ -1466,24 +1466,26 @@ Löh’s investigation of twin prime chains is interesting
 Worked on order of 2 mod p details, extracting factors of
 Mersenne numbers
 Had a bash oneliner which passed 2^m-1 values to factor program:
-for ((i=71; i<1000; i++)) do read; echo -en
- "$i:\t"; echo -e "(2^$i-1)" | bc | xargs factor | sed 's/: /=/'
- | sed 's/ /*/g
- '; done | tee -a order-2-mod-p
- I found a web page which had factors of larger Mersenne numbers:
- https://planetmath.org/tableoffactorsofsmallmersennenumbers
- Used this to get past p=137 and 149
- Currently stuck calculating factors of 159 (though this isn't a
- prime and I could apply various rules which tell me that the
- factors of the 2^k-1 where k are divisors of 159 are factors of
- 2^159-1.
+for ((i=71; i<1000; i++)) do read; echo -en "$i:\t"; echo -e "(2^$i-1)" | bc | xargs factor | sed 's/: /=/' | sed 's/ /*/g '; done | tee -a order-2-mod-p
 
- I should get on and fix the cc1-search.py script to improve the
- determination of next values of the sieve.
+I found a web page which had factors of larger Mersenne numbers:
+https://planetmath.org/tableoffactorsofsmallmersennenumbers
+Used this to get past p=137 and 149
+Currently stuck calculating factors of 159 (though this isn't a
+prime and I could apply various rules which tell me that the
+factors of the 2^k-1 where k are divisors of 159 are factors of
+2^159-1.
 
- I should work on analysis of  Cunningham chains of type 2 and
- also the generalisations considered by Lehmer to a.p_k+b where
- (a,b) = (2,1) or (2,-1) are the Cunningham chains, but when a >
- 2, then primitive roots of values larger than 2 come into play
- and different approaches to search scripts for general chains
- might be needed.
+I should get on and fix the cc1-search.py script to improve the
+determination of next values of the sieve.
+
+I should work on analysis of  Cunningham chains of type 2 and
+also the generalisations considered by Lehmer to a.p_k+b where
+(a,b) = (2,1) or (2,-1) are the Cunningham chains, but when a >
+2, then primitive roots of values larger than 2 come into play
+and different approaches to search scripts for general chains
+might be needed.
+
+More chains of length 11:
+k = 2981307239: 12789808055309 25579616110619 51159232221239 102318464442479 204636928884959 409273857769919 818547715539839 1637095431079679 3274190862159359 6548381724318719 13096763448637439 length: 11 (26193526897274879=19*19*109*4999*133161029)
+k = 3189526893: 13683070370969 27366140741939 54732281483879 109464562967759 218929125935519 437858251871039 875716503742079 1751433007484159 3502866014968319 7005732029936639 14011464059873279 length: 11 (28022928119746559=47*596232513186097)
