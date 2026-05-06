@@ -20,31 +20,6 @@ def signal_handler(sig, fram):
 	print(f"k={k}")
 	sys.exit(0)
 
-def is_prime(n):
-	result = subprocess.run(["openssl","prime", str(n)], stdout=subprocess.PIPE)
-	output= str(result.stdout)
-	return not (output.find("is prime")== -1)
-
-def prime_factors(n: int) -> list[int]:
-	factors = []
-	# Handle factor 2 separately (only even prime)
-	while n % 2 == 0:
-		factors.append(2)
-		n //= 2
-	# Check odd factors up to sqrt(n)
-	i = 3
-	while i * i <= n:
-		while n % i == 0:
-			factors.append(i)
-			n //= i
-		if is_prime(n):
-			break
-		i += 2
-	# If remainder is a prime number > 2
-	if n > 1:
-		factors.append(n)
-	return factors
-
 class CCResult:
 	end: int
 	def __init__(self):
@@ -98,6 +73,7 @@ def main():
 		n = args.shorter_chain_length
 	if m == 1:
 		print("All primes are candidates for chains of length 1")
+		exit(1)
 	# Check size of m against primes which have 2 as a primitive
 	# root and establish the multiplier for k
 	primitive_root_primes=(3,5,11,13,19,29,37)
@@ -108,7 +84,7 @@ def main():
 				mul *= p
 			else:
 				break
-		print(f"multipler = {mul}", flush=True)
+		print(f"multiplier = {mul}", flush=True)
 	else:
 		print(f"Chain length currently limited to {max(primitive_root_primes)}")
 		exit(1)
@@ -124,8 +100,8 @@ def main():
 		for p in order_2_mod_p[i]:
 			# Construct a set of values mod p where k*mul*2^j-1 for j in range(i)
 			if args.progress:
-				eprint(end=LINE_CLEAR)
-				eprint(f"k=0 ss={len(sieve_to)} Adding p={p} to sieve",end='\r')
+				eprint(end=LINE_CLEAR,flush=True)
+				eprint(f"k=0 ss={len(sieve_to)} Adding p={p} to sieve",end='\r',flush=True)
 			init_sieve_mod[p] = k_mod(p,i,mul)
 			init_sieve_to[p] = 0
 			#print("sieve_dict = ", sieve_dict)
