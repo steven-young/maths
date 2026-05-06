@@ -1496,3 +1496,8 @@ uses to update sieve values
 
 Think about improvements to the search method that follow Loh's
 paper
+
+06 May 26
+Started up some cc1-search.py scripts
+The cc1-search.py script needs improvement.  The algorithm for
+determining the next
