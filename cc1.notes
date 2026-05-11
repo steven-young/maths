@@ -1534,3 +1534,26 @@ This is inefficient because all the values of the dictionary are
 checked
 An alternative is to have sieve_to values have a linked list
 
+11 May 26
+Have done some reading about python and names and values and
+wondering how linked lists might work for me.
+If I have a tuple with (p,t) where the t is the sieve_to value
+associated with the prime p, then I want a linked list with this
+tuple value and a pointer to the next tuple with the next value
+of t that needs to be considered.
+My algorithm will then have a linked list of (p,t) tuples which
+are ordered by t values, lowest to highest.  Then the
+determination of the next k value will involved starting at the
+head of the linked list and for the linked list items which have
+value of t that is less than k, then determine the sieve_vals
+that correspond to the values around k and add them to the
+sieve_vals set and determine the value t_new (which is now larger
+than k) and construct a new tuple (p,t_new) then traverse the
+linked list to place the list item with the (p,t_new) tuple value
+in the correct position in the linked list.
+
+A ChatGPT session suggested to me that linked lists in python
+aren't good.  If I am wanting a sorted list as above, then use a
+python list with the bisect module, and reorder the tuple to be
+(t,p) so insort can sort by first element in the tuple.
+
