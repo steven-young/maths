@@ -1508,3 +1508,29 @@ When m=1 the script should exit(1)
 
 Need to think through the "Skip k values depending on sieve_list"
 section of the code
+
+07 May 26
+From cc1-search.36-4:
+k = 3982100443: 348275420627881889 696550841255763779 1393101682511527559 2786203365023055119 5572406730046110239 11144813460092220479 22289626920184440959 44579253840368881919 89158507680737763839 178317015361475527679 356634030722951055359 length: 11 (713268061445902110719=271*2631985466590044689)
+
+10 May 26
+The "Skip k values depending on sieve_list" section of code needs
+improvement
+The variables that are used to determine the next value of k are:
+sieve_vals, sieve_mod, sieve_to and sieve_cur
+sieve_vals is the set of integer values to be sieved
+sieve_mod is a dictionary which has lists of the values of k
+modulo p such that mul.k-1 will be a chain which will not be of
+the desired length
+sieve_to is a dictionary for which the sieve_vals set contains
+values which satisfy the modulo conditions for a specific prime p
+
+There are a number of deficiencies in the current code.
+When the next value of k is ready to be checked, the sieve_to
+values are checked and if any sieve_to values are less than k,
+then for that value of p, then values which correspond to
+sieve_mod values for p are added to sieve_vals.
+This is inefficient because all the values of the dictionary are
+checked
+An alternative is to have sieve_to values have a linked list
+
