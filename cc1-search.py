@@ -6,6 +6,7 @@ import os
 import sys
 import signal
 from primefac import isprime,primefac 
+from bisect import insort
 
 LINE_CLEAR = '\x1b[2K'
 
@@ -91,9 +92,9 @@ def main():
 
 	# Establish initial sieve considering primes with order of 2 mod p less than or equal to m
 	init_sieve_mod = {}
-	init_sieve_to = {}
+	init_sieve_to = []
 	sieve_mod = {}
-	sieve_to = {}
+	sieve_to = []
 	sieve_cur = {}
 	order_2_mod_p=((),(),(),(7,),(),(31,),(),(127,),(17,),(73,),(),(23,89),(),(8191,),(43,),(151,),(257,),(131071,),(),(524287,),(41,),(337,),(683,),(47,178481),(241,),(601,1801),(2731,),(262657,),(113,),(233,1103,2089),(331,),(2147483647,),(65537,),(599479,),(43691,),(71,122921),(109,))
 	for i in range(3,m):
@@ -101,37 +102,45 @@ def main():
 			# Construct a set of values mod p where k*mul*2^j-1 for j in range(i)
 			if args.progress:
 				eprint(end=LINE_CLEAR,flush=True)
-				eprint(f"k=0 ss={len(sieve_to)} Adding p={p} to sieve",end='\r',flush=True)
+				eprint(f"k=0 ss={len(init_sieve_mod)} Adding p={p} to sieve",end='\r',flush=True)
 			init_sieve_mod[p] = k_mod(p,i,mul)
-			init_sieve_to[p] = 0
+			#init_sieve_to[p] = 0
+			insort(init_sieve_to, (0,p))
 			#print("sieve_dict = ", sieve_dict)
 
 	# Start searching
 	k=args.start_k
 	sieve_vals=set()
 	sieve_mod = dict(init_sieve_mod)
-	sieve_to = dict(init_sieve_to)
+	sieve_to = list(init_sieve_to)
+	cur_st_idx = 0
 	while True:
 		# Skip k values depending on sieve_list
 		prev_k=k
-		while any(s<=k for s in iter(sieve_to.values())):
-			for p in sieve_to:
-				if k >= sieve_to[p]:
-					if args.progress:
-						eprint(end=LINE_CLEAR)
-						eprint(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Updating sieve values for p={p}",end='\r')
-					sieve_cur[p] = [(k//p)*p+i for i in sieve_mod[p]]
-					sieve_to[p] = (k//p + 1)*p
-					#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
-					for v in sieve_cur[p]:
-						sieve_vals.add(v)
+#		while any(s<=k for s in iter(sieve_to.values())):
+#			for p in sieve_to:
+		while sieve_to[cur_st_idx][0] <= k:
+				#if k >= sieve_to[p]:
+			p = sieve_to[cur_st_idx][1]
+			if args.progress:
+				eprint(end=LINE_CLEAR)
+				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} Updating sieve values for p={p}",end='\r')
+			sieve_cur[p] = [(k//p)*p+i for i in sieve_mod[p]]
+			#sieve_to[p] = (k//p + 1)*p
+			insort(sieve_to, ((k//p + 1)*p,p), lo=cur_st_idx)
+			cur_st_idx = cur_st_idx +1
+			#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
+			for v in sieve_cur[p]:
+				sieve_vals.add(v)
 			while k in sieve_vals:
 				k += 1
+		del sieve_to[:cur_st_idx]
+		cur_st_idx=0
 		sieve_vals.difference_update(range(prev_k,k+1))
 		num=mul*k-1
 		if args.progress:
 			eprint(end=LINE_CLEAR)
-			eprint(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Checking CC1({num})",end='\r')
+			eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} Checking CC1({num})",end='\r')
 		result=cc1(num)
 		if len(result.chain)>=n:
 			print(f"k = {k}: ", end='')
@@ -139,13 +148,14 @@ def main():
 		for p in set(result.chain+result.factors):
 			if args.progress:
 				eprint(end=LINE_CLEAR)
-				eprint(f"k={k} ss={len(sieve_to)} sv={len(sieve_vals)} Adding p={p} to sieve",end='\r')
+				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} Adding p={p} to sieve",end='\r')
 			# Process each prime
-			sieve_to[p] = k
+			#sieve_to[p] = k
+			insort(sieve_to, (k, p), lo=cur_st_idx)
 			sieve_mod[p] = k_mod(p,n,mul)
 			if ( args.limit_sieve_size and (len(sieve_to)>args.sieve_size_limit) ):
 				sieve_mod = dict(init_sieve_mod)
-				sieve_to = dict(init_sieve_to)
+				sieve_to = list(init_sieve_to)
 				eprint();
 				eprint("Sieve size limit reached. Resetting sieve to initial values")
 		#print("sieve_dict = ", sieve_dict)
