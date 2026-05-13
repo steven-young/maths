@@ -1595,3 +1595,9 @@ Now I should improve the sieve_vals code.  Use a bit string to
 represent values which have been sieved.  This should provide a
 faster way to determine the next values of k to evalulate a
 chain.
+
+Read https://bitstring.readthedocs.io/en/stable/index.html
+documentation to work out whether I can use bitstring module to
+allow me to manage the sieve as a bit string rather than a set of
+integer values
+
