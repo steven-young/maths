@@ -1557,3 +1557,41 @@ aren't good.  If I am wanting a sorted list as above, then use a
 python list with the bisect module, and reorder the tuple to be
 (t,p) so insort can sort by first element in the tuple.
 
+12 May 26
+Further thinking about the use of list and bisect
+The list will be a list of tuples (t,p). Since where ordering on
+t values then it is more efficient to use the natural tuple
+ordering rather than use a key function to insort
+
+from bisect import insort
+
+# In this version of the code we won’t reset the sieve data
+# structures if they grow to be larger than a limit. But let’s
+# change one thing at a time. Leave the init_sieve set up in
+# place for the moment
+
+init_sieve_to = []
+
+insort(init_sieve_to, (0, p))
+
+sieve _to = list(init_sieve_to)
+cur_st_idx=0
+
+# Remove the "while any values in sieve_to less than or equal to
+# k" and "for p in sieve_to" loops and run the following:
+while sieve_to[cur_st_idx] <= k:
+  # Add sieve_cur values to sieve_vals
+  # Calculate t_new value and insert next tuple
+  insort(sieve_to, (t_new,p),lo=cur_st_idx)
+  cur_st_idx = cur_st_idx+1
+
+Made updates to cc1-search.py and started debugging but found
+various problems.  More debugging needed
+Code debugged and now using it in the various searches currently
+running.
+It seems a bit faster.
+
+Now I should improve the sieve_vals code.  Use a bit string to
+represent values which have been sieved.  This should provide a
+faster way to determine the next values of k to evalulate a
+chain.
