@@ -62,6 +62,7 @@ def main():
 	parser = argparse.ArgumentParser(description="Search for Cunningham chains (type 1) of length m.")
 	parser.add_argument("length", type=int, help="Length of chain m")
 	parser.add_argument("-k","--start_k", type=int,default=1,help="Start k value")
+	parser.add_argument("-e","--end_k", type=int,default=0,help="End k value")
 	parser.add_argument("-l","--limit_sieve_size",action="store_true",help="Limit sieve size")
 	parser.add_argument("-s","--sieve_size_limit", type=int,default=5000,help="Sieve size limit")
 	parser.add_argument("-p","--progress",action="store_true",help="Print progress")
@@ -95,7 +96,6 @@ def main():
 	init_sieve_to = []
 	sieve_mod = {}
 	sieve_to = []
-	sieve_cur = {}
 	order_2_mod_p=((),(),(),(7,),(),(31,),(),(127,),(17,),(73,),(),(23,89),(),(8191,),(43,),(151,),(257,),(131071,),(),(524287,),(41,),(337,),(683,),(47,178481),(241,),(601,1801),(2731,),(262657,),(113,),(233,1103,2089),(331,),(2147483647,),(65537,),(599479,),(43691,),(71,122921),(109,))
 	for i in range(3,m):
 		for p in order_2_mod_p[i]:
@@ -110,11 +110,12 @@ def main():
 
 	# Start searching
 	k=args.start_k
+	end_k = args.end_k
 	sieve_vals=set()
 	sieve_mod = dict(init_sieve_mod)
 	sieve_to = list(init_sieve_to)
 	cur_st_idx = 0
-	while True:
+	while not (end_k != 0 and k > end_k):
 		# Skip k values depending on sieve_list
 		prev_k=k
 #		while any(s<=k for s in iter(sieve_to.values())):
@@ -125,13 +126,13 @@ def main():
 			if args.progress:
 				eprint(end=LINE_CLEAR)
 				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} Updating sieve values for p={p}",end='\r')
-			sieve_cur[p] = [(k//p)*p+i for i in sieve_mod[p]]
+			b=(k//p)*p
+			for v in [b+i for i in sieve_mod[p]]:
+				sieve_vals.add(v)
 			#sieve_to[p] = (k//p + 1)*p
 			insort(sieve_to, ((k//p + 1)*p,p), lo=cur_st_idx)
 			cur_st_idx = cur_st_idx +1
 			#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
-			for v in sieve_cur[p]:
-				sieve_vals.add(v)
 			while k in sieve_vals:
 				k += 1
 		del sieve_to[:cur_st_idx]
@@ -160,6 +161,7 @@ def main():
 				eprint("Sieve size limit reached. Resetting sieve to initial values")
 		#print("sieve_dict = ", sieve_dict)
 		k += 1
+	print(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)}")
 
 if __name__ == "__main__":
 	main()
