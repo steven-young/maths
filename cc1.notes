@@ -1487,6 +1487,7 @@ and different approaches to search scripts for general chains
 might be needed.
 
 More chains of length 11:
+From /tmp/cc1-search.12-4
 k = 2981307239: 12789808055309 25579616110619 51159232221239 102318464442479 204636928884959 409273857769919 818547715539839 1637095431079679 3274190862159359 6548381724318719 13096763448637439 length: 11 (26193526897274879=19*19*109*4999*133161029)
 k = 3189526893: 13683070370969 27366140741939 54732281483879 109464562967759 218929125935519 437858251871039 875716503742079 1751433007484159 3502866014968319 7005732029936639 14011464059873279 length: 11 (28022928119746559=47*596232513186097)
 
@@ -1601,3 +1602,65 @@ documentation to work out whether I can use bitstring module to
 allow me to manage the sieve as a bit string rather than a set of
 integer values
 
+13 May 26
+/tmp/cc1-search.12-4:k = 8059332288: 34574535515519 69149071031039 138298142062079 276596284124159 553192568248319 1106385136496639 2212770272993279 4425540545986559 8851081091973119 17702162183946239 35404324367892479 length: 11 (70808648735784959=2969*23849325946711)
+/tmp/cc1-search.12-4:k = 8960217961: 38439335052689 76878670105379 153757340210759 307514680421519 615029360843039 1230058721686079 2460117443372159 4920234886744319 9840469773488639 19680939546977279 39361879093954559 length: 11 (78723758187909119=29*197*2069*43991*151397)
+
+Working on code changes to allow for bitstring usage:
+I need to install bitstring module
+pip install bitstring
+
+import bitstring
+
+I'm thinking that sieve_vals should still be a set (or other data
+structure) which holds integer values of k which should be
+sieved, but also have bs_vals holding a fixed amount of bits
+which will provide a faster mechanism for sieving the values from
+k to k+bs_len.
+
+By default k starts at 1 or can be set by -k/--start_k argument.
+
+The "Skip k values according to sieve" should then do the
+following:
+For each element in the sieve_mod list, populate the bs_vals
+bitstring with bit values of 1 for value mod p in the 
+sieve_mod[p] list
+bs_vals = BitArray(length=10000)
+
+One can set bits in a BitArray
+s.set(1, range(modval,len(s),p))
+One can shift a BitArray, s, to the left by n bits
+s <<= n
+One can delete part of a BitArray
+del s[1:n]
+
+I'm thinking that sieve_vals should be a sorted list which has
+items added to is using insort() function.  Should then use the
+bisect() function to locate sieve_vals which are less than a
+certain value
+
+I think I have enough functionality to work out something to code
+
+15 May 26
+sieve_vals to be a sorted list
+bs_vals to be a BitArray of a specific length
+
+So when processing the values of sieve_mod, the script should set
+values that land in the BitArray, and otherwise add values to
+sieve_vals list
+
+Ok, instead of using BitArray data structures, I decided to just
+change the code to have sieve_vals be a sorted list.  This
+improves the profile timings reducing the amount of time in set
+addition operations.
+
+The code would probably be improved by more efficient bitarray
+usage rather than skipping through the sieve_mod values as k
+increases
+
+The comparison in timing now will be how efficiently can I
+construct a sieve of a certain size and how many candidates
+does it suggest.  I could change the structure of the code
+Construct a sieve of a MB in size, based on an initial set of
+primes.  Run through all the candidate calculating the Cunningham
+chain and collecting further prime to apply to the next sieve

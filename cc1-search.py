@@ -6,7 +6,7 @@ import os
 import sys
 import signal
 from primefac import isprime,primefac 
-from bisect import insort
+from bisect import bisect,insort
 
 LINE_CLEAR = '\x1b[2K'
 
@@ -111,10 +111,11 @@ def main():
 	# Start searching
 	k=args.start_k
 	end_k = args.end_k
-	sieve_vals=set()
+	sieve_vals = []
 	sieve_mod = dict(init_sieve_mod)
 	sieve_to = list(init_sieve_to)
 	cur_st_idx = 0
+	cc1count = 0
 	while not (end_k != 0 and k > end_k):
 		# Skip k values depending on sieve_list
 		prev_k=k
@@ -125,31 +126,43 @@ def main():
 			p = sieve_to[cur_st_idx][1]
 			if args.progress:
 				eprint(end=LINE_CLEAR)
-				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} Updating sieve values for p={p}",end='\r')
+				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Updating sieve values for p={p}",end='\r')
 			b=(k//p)*p
 			for v in [b+i for i in sieve_mod[p]]:
-				sieve_vals.add(v)
+				if (v >= k):
+					if len(sieve_vals) == 0:
+						sieve_vals.append(v)
+					else:
+						idx = bisect(sieve_vals, v)
+						if sieve_vals[idx-1] != v:
+							sieve_vals.insert(idx,v)
 			#sieve_to[p] = (k//p + 1)*p
 			insort(sieve_to, ((k//p + 1)*p,p), lo=cur_st_idx)
 			cur_st_idx = cur_st_idx +1
 			#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
-			while k in sieve_vals:
-				k += 1
+			idx = 0
+			if len(sieve_vals) != 0:
+				while sieve_vals[idx]==k:
+					idx += 1
+					k += 1
+					if idx==len(sieve_vals):
+						break
+				del sieve_vals[:idx]
 		del sieve_to[:cur_st_idx]
 		cur_st_idx=0
-		sieve_vals.difference_update(range(prev_k,k+1))
 		num=mul*k-1
+		result=cc1(num)
+		cc1count += 1
 		if args.progress:
 			eprint(end=LINE_CLEAR)
-			eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} Checking CC1({num})",end='\r')
-		result=cc1(num)
+			eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Checking CC1({num})",end='\r')
 		if len(result.chain)>=n:
 			print(f"k = {k}: ", end='')
 			print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
 		for p in set(result.chain+result.factors):
 			if args.progress:
 				eprint(end=LINE_CLEAR)
-				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} Adding p={p} to sieve",end='\r')
+				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Adding p={p} to sieve",end='\r')
 			# Process each prime
 			#sieve_to[p] = k
 			insort(sieve_to, (k, p), lo=cur_st_idx)
