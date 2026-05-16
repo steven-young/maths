@@ -2,6 +2,7 @@
 import argparse
 import math
 import subprocess
+from primefac import isprime,primefac
 
 cont_count = 20
 
@@ -24,7 +25,7 @@ def prime_factors(n: int) -> list[int]:
 		while n % i == 0:
 			factors.append(i)
 			n //= i
-		if is_prime(n):
+		if isprime(n):
 			break
 		i += 2
 
@@ -48,12 +49,12 @@ def prime_factors(n: int) -> list[int]:
 def cc1(num, args):
 	global cont_count
 	start = args.number
-	if is_prime(num):
+	if isprime(num):
 		if args.check_prev:
 			prev = (num-1)//2
 			reported_start = False
 			while (prev >= 2 and num == (prev*2)+1):
-				if is_prime(prev):
+				if isprime(prev):
 					if args.report_not_start and not reported_start:
 						print(f"{start} not start of chain: ", end='', flush=True)
 						reported_start = True
@@ -63,7 +64,7 @@ def cc1(num, args):
 				else:
 					break
 		length = 0
-		while is_prime(num):
+		while isprime(num):
 			print(f"{num} ", end='', flush=True)
 			num = 2*num+1
 			length += 1
@@ -72,19 +73,19 @@ def cc1(num, args):
 			if args.show_length:
 				print(f"Chain length {length} ", end='', flush=True)
 			if args.show_end:
-				factors=prime_factors(num)
+				factors=list(primefac(num))
 				print(f"({num}="+"*".join(str(i) for i in factors)+") ", end='', flush=True)
 			if args.continuous:
 				if cont_count > 0 or args.cont_count == 0:
-					factors=prime_factors(num)
+					factors=list(primefac(num))
 					print(f"({num}="+"*".join(str(i) for i in factors), end='', flush=True)
 					num = 2*num+1
-					while not is_prime(num):
+					while not isprime(num):
 						cont_count -= 1
 						if (cont_count <= 0 and args.cont_count != 0):
 							print(" ..", end='', flush=True)
 							break
-						factors=prime_factors(num)
+						factors=list(primefac(num))
 						print(f" {num}="+"*".join(str(i) for i in factors), end='', flush=True)
 						num = 2*num+1
 					else:
@@ -92,17 +93,17 @@ def cc1(num, args):
 					print(") ", end='', flush=True)
 		print('', flush=True)
 	else:
-		factors=prime_factors(num)
+		factors=list(primefac(num))
 		print(f"({num}="+"*".join(str(i) for i in factors),end='', flush=True)
 		if args.continuous:
 			if cont_count > 0 or args.cont_count == 0:
 				num = 2*num+1
-				while not is_prime(num):
+				while not isprime(num):
 					cont_count -= 1
 					if (cont_count <= 0 and args.cont_count != 0):
 						print(" ..", end='', flush=True)
 						break
-					factors=prime_factors(num)
+					factors=list(primefac(num))
 					print(f" {num}="+"*".join(str(i) for i in factors), end='', flush=True)
 					num = 2*num+1
 				else:

@@ -1664,3 +1664,17 @@ does it suggest.  I could change the structure of the code
 Construct a sieve of a MB in size, based on an initial set of
 primes.  Run through all the candidate calculating the Cunningham
 chain and collecting further prime to apply to the next sieve
+
+16 May 26
+Completed coding a bitstring version of the code.
+Experimented briefly with different bs_size values.  100000000
+(100 million) is better than 1 billion as the addition of
+sieve_mod values into the bitarray of 100 million in size is
+quicker than adding them to the 1 billion size bit array.
+
+Encountered a segmentation fault when trying to add very large p
+values to the sieve.  Introduced a limit to the size of primes
+added to the sieve_mod values.
+Found that I needed to add a k += 1 line in the case when a chain
+of the right length was found
+

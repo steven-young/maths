@@ -7,6 +7,7 @@ import sys
 import signal
 from primefac import isprime,primefac 
 from bisect import bisect,insort
+import bitstring
 
 LINE_CLEAR = '\x1b[2K'
 
@@ -116,64 +117,108 @@ def main():
 	sieve_to = list(init_sieve_to)
 	cur_st_idx = 0
 	cc1count = 0
+	bs_size = 100000000
+	bs_vals = bitstring.BitArray(bs_size)
 	while not (end_k != 0 and k > end_k):
 		# Skip k values depending on sieve_list
 		prev_k=k
 #		while any(s<=k for s in iter(sieve_to.values())):
 #			for p in sieve_to:
-		while sieve_to[cur_st_idx][0] <= k:
-				#if k >= sieve_to[p]:
-			p = sieve_to[cur_st_idx][1]
-			if args.progress:
-				eprint(end=LINE_CLEAR)
-				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Updating sieve values for p={p}",end='\r')
-			b=(k//p)*p
-			for v in [b+i for i in sieve_mod[p]]:
-				if (v >= k):
-					if len(sieve_vals) == 0:
-						sieve_vals.append(v)
-					else:
-						idx = bisect(sieve_vals, v)
-						if sieve_vals[idx-1] != v:
-							sieve_vals.insert(idx,v)
-			#sieve_to[p] = (k//p + 1)*p
-			insort(sieve_to, ((k//p + 1)*p,p), lo=cur_st_idx)
-			cur_st_idx = cur_st_idx +1
-			#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
-			idx = 0
-			if len(sieve_vals) != 0:
-				while sieve_vals[idx]==k:
-					idx += 1
-					k += 1
-					if idx==len(sieve_vals):
-						break
+		bs_start = k
+		bs_end = k + bs_size
+		bs_vals.set(0)
+		while True:
+			# Set bits from sieve_vals less than bs_end
+			if len(sieve_vals) > 0:
+				idx = bisect(sieve_vals, bs_end)
+				bs_vals.set(1, [x - bs_start for x in sieve_vals[0:idx]])
 				del sieve_vals[:idx]
-		del sieve_to[:cur_st_idx]
-		cur_st_idx=0
-		num=mul*k-1
-		result=cc1(num)
-		cc1count += 1
-		if args.progress:
-			eprint(end=LINE_CLEAR)
-			eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Checking CC1({num})",end='\r')
-		if len(result.chain)>=n:
-			print(f"k = {k}: ", end='')
-			print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
-		for p in set(result.chain+result.factors):
+			# Process the sieve_to values
+			while sieve_to[cur_st_idx][0] <= k:
+				p = sieve_to[cur_st_idx][1]
+				if args.progress:
+					eprint(end=LINE_CLEAR)
+					eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Updating sieve values for p={p}",end='\r')
+				b=(k//p)*p
+				for v in [b+i for i in sieve_mod[p]]:
+					if v < k:
+						v += p
+					if v < bs_end:
+						bs_vals.set(1, range(v-k, bs_size, p))
+					else:
+						if len(sieve_vals) == 0:
+							sieve_vals.append(v)
+						else:
+							idx = bisect(sieve_vals, v)
+							if sieve_vals[idx-1] != v:
+								sieve_vals.insert(idx,v)
+				#sieve_to[p] = (k//p + 1)*p
+				insort(sieve_to, (bs_end,p), lo=cur_st_idx)
+				cur_st_idx = cur_st_idx +1
+				#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
+				idx = 0
+				if len(sieve_vals) != 0:
+					while sieve_vals[idx]==k:
+						idx += 1
+						k += 1
+						if idx==len(sieve_vals):
+							break
+					del sieve_vals[:idx]
+			del sieve_to[:cur_st_idx]
+			if args.progress:
+				eprint(end='\n')
+			cur_st_idx=0
+			if bs_vals.any(0):
+				break
+		# Step through bs_vals bitstring sieve vals
+		# Find next value of k in bs_vals
+		while k < bs_end:
+			if bs_vals.all(1, range(k - bs_start, bs_size)):
+				k = bs_end
+				break;
+			k = bs_vals.find('0b0', k - bs_start)[0] + bs_start
+			num=mul*k-1
+			result=cc1(num)
+			cc1count += 1
 			if args.progress:
 				eprint(end=LINE_CLEAR)
-				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Adding p={p} to sieve",end='\r')
-			# Process each prime
-			#sieve_to[p] = k
-			insort(sieve_to, (k, p), lo=cur_st_idx)
-			sieve_mod[p] = k_mod(p,n,mul)
+				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Checking CC1({num})",end='\r')
+			if len(result.chain)>=n:
+				print(f"k = {k}: ", end='')
+				print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
+			for p in set(result.chain+result.factors):
+				if p > 100000000000:
+					continue
+				if args.progress:
+					eprint(end=LINE_CLEAR)
+					eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Adding p={p} to sieve",end='\r')
+				# Process each prime
+				#sieve_to[p] = k
+				sieve_mod[p] = k_mod(p,n,mul)
+				# Update bs_vals with these mod values
+				b = (k//p)*p
+				for v in [ b+i for i in sieve_mod[p] ]:
+					if v < k:
+						v += p
+					if v < bs_end:
+						bs_vals.set(1, range(v - bs_start, bs_size, p))
+					if v > bs_end and p > bs_size:
+						if len(sieve_vals) == 0:
+							sieve_vals.append(v)
+						else:
+							idx = bisect(sieve_vals, v)
+							if sieve_vals[idx-1] != v:
+								sieve_vals.insert(idx,v)
+				if p < bs_size:
+					insort(sieve_to, (bs_end, p), lo=cur_st_idx)
+				else:
+					insort(sieve_to, ((k//p +1)*p, p), lo=cur_st_idx)
 			if ( args.limit_sieve_size and (len(sieve_to)>args.sieve_size_limit) ):
 				sieve_mod = dict(init_sieve_mod)
 				sieve_to = list(init_sieve_to)
 				eprint();
 				eprint("Sieve size limit reached. Resetting sieve to initial values")
-		#print("sieve_dict = ", sieve_dict)
-		k += 1
+			k += 1
 	print(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)}")
 
 if __name__ == "__main__":
