@@ -165,8 +165,8 @@ def main():
 							break
 					del sieve_vals[:idx]
 			del sieve_to[:cur_st_idx]
-			if args.progress:
-				eprint(end='\n')
+#			if args.progress:
+#				eprint(end='\n')
 			cur_st_idx=0
 			if bs_vals.any(0):
 				break
@@ -187,7 +187,7 @@ def main():
 				print(f"k = {k}: ", end='')
 				print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
 			for p in set(result.chain+result.factors):
-				if p > 100000000000:
+				if p > 1000000:
 					continue
 				if args.progress:
 					eprint(end=LINE_CLEAR)
