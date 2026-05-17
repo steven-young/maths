@@ -1666,6 +1666,29 @@ primes.  Run through all the candidate calculating the Cunningham
 chain and collecting further prime to apply to the next sieve
 
 16 May 26
+# k value at start defines one end of the bit string sieve
+bs_size = 1000000
+bs_vals = BitArray(bs_size)
+
+# within the loop for processing the elements of sieve_mod
+  if v < k:
+    v += p
+  if v < k+bs_size:
+    bs_vals.set(1, range(v,bs_size,p))
+  else:
+    # drop to code for adding a value to sieve_vals
+# outside the sieve _mod processing loop
+# add value to sieve_to list
+# don’t think I need to include the code for moving through the sieve vals 
+
+There is more logic required here.  If p is larger than bs_size, different logic is required
+
+# now work through the sieve
+# find the next candidate prime
+# calculate cc1
+# for each element of the chain and the end factors, add to sieve_mod values and also update bs_vals and sieve_vals accordingly
+# loop back to find next candidate
+
 Completed coding a bitstring version of the code.
 Experimented briefly with different bs_size values.  100000000
 (100 million) is better than 1 billion as the addition of
@@ -1679,6 +1702,14 @@ Found that I needed to add a k += 1 line in the case when a chain
 of the right length was found
 
 17 May 26
+I’ve successfully coded a bit string sieve which allows the
+cc1-search script to run through values more efficiently in
+blocks of 100 million at a time
+Now I want to compare what I’m doing in my code with things other
+people are doing
+I also want to search for reports on how people searching for
+chains of length greater than 12
+
 Made some adjustments.
 Reduced the limit for primes to be added to the siece to be less
 than 1000000 (Number of primes less than 1 million is 78498).
