@@ -87,7 +87,7 @@ def main():
 				mul *= p
 			else:
 				break
-		print(f"multiplier = {mul}", flush=True)
+		print(f"multiplier = {mul}. Starting from k = {args.start_k}", flush=True)
 	else:
 		print(f"Chain length currently limited to {max(primitive_root_primes)}")
 		exit(1)
