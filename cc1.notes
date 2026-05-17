@@ -1402,7 +1402,7 @@ Stopped cc1-search.py 4:
 Trying to understand Theorem 1 in Lehmer 1965
 I can work through the example when (a,b)=(2,1) and consider the
 equivalence that Theorem 1 has for my analysis of primes which
-have 2 as a primitive root and the mullet mm multiplier that this
+have 2 as a primitive root and the multiplier that this
 implies for type 1 Cunningham chains of length m
 
 22 Apr 26
@@ -1733,3 +1733,34 @@ Should collate the lists of Cunningham chains I have found
 The cc1-search.py 18 search reached CC13:
 /tmp/cc1-search.18-4:k = 50189331757: 4090932431513069 8181864863026139 16363729726052279 32727459452104559 65454918904209119 130909837808418239 261819675616836479 523639351233672959 1047278702467345919 2094557404934691839 4189114809869383679 8378229619738767359 16756459239477534719 length: 13 (33512918478955069439=37*905754553485272147)
 
+The cc1-search.py 18 -p -n 11 search found plenty of length 11
+chains.  Restarted searching for -n 12 chains
+
+Thinking further about the list of primitive roots mod 2 and the
+order_2_mod_p tuple list in the cc1-search.py script.  This could
+possibly be generated from some external table or data source.
+
+The multiplier for my cc1-search.py script is calculated from a
+list primitive_root_primes=(3,5,11,13,19,29,37)
+Further values in this sequence are (53,59,61,67,83,101,107,131,139,149,..)
+
+The order_2_mod_p tuple list provides a list of primes where
+order_2_mod_p[n] is the list of primes which have n as the order
+of 2, where the prime is also not a primitive root (as this is
+represented in the multiplier).  The script has tuple values
+populated up to order_2_mod_p[36].  If I populate the
+primitive_root_primes tuple with values higher than 37, then I
+need to populate up to p-1, where p is the highest value in the
+primitive root list
+
+All of these values can be determined by examining the factors
+of Mersenne numbers.  There is a point where these factors are
+unknown.  (What is this point currently?)
+
+I can devise a script which calculates factors of Mersenne
+numbers and produces the data to populate the
+primitive_root_primes and order_2_mod_p tuples.
+I suspect that if I search in these higher primitive root ranges,
+then I might find Cunningham chains of higher lengths more
+quickly, though I wonder when I will get to the limit of
+arbitrary precision integers?
