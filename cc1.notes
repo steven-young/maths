@@ -1764,3 +1764,24 @@ I suspect that if I search in these higher primitive root ranges,
 then I might find Cunningham chains of higher lengths more
 quickly, though I wonder when I will get to the limit of
 arbitrary precision integers?
+
+For each Cunningham chain multiple value I want to determine the
+k values at which the first chain of certain size occurs
+Ie. Multiplier = 30
+For 30.k-1
+29 59 length 2
+59 length 1 (shouldn’t count as post of length 2 chain starting
+at 29)
+89 length 6
+
+1 149 5
+2 29 1
+3 1889 63
+4 509 17
+5 53639 1788
+6 89 3
+7 1122659
+followed by known lists of first Cunningham chain values
+
+18 May 26
+./cc1-search.py 3 fails to run.  Need to debug this
