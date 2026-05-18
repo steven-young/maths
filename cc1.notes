@@ -1785,3 +1785,6 @@ followed by known lists of first Cunningham chain values
 
 18 May 26
 ./cc1-search.py 3 fails to run.  Need to debug this
+
+Can you attach the python debugger to a running python script?
+
