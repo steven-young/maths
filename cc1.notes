@@ -1793,3 +1793,112 @@ Installed python3.14 and set up a venv for v3.14 with primefac
 and bitstring installed and started running cc1-search.py within
 that environment.  This might allow me to attach a debugger to a
 running python environment.
+
+Couldn't run pdb3 in the python3.14 environment
+Ah different invocation in 3.14?
+python -m pdb scriptname.py arguments
+ rather than
+pdb3 scriptname.py arguments
+For m=3, the init_sieve_to and hence sieve_to list is empty, so
+needed an additional check to avoid referencing sieve_to[0] when
+len(sieve_to) == 0
+
+The cc1-search.py script has bugs when the shorter_chain_length
+value is low, related to the primitive_root_primes list.
+Fixed.  Included if/else so the k_mod for the init_sieve_mod
+values don't exceed shorter_chain_length(==n).
+
+So now I can find the earliest values of k which provide chains
+of low lengths.
+
+For m=4, multiplier=30
+n	k	p
+1	5	149
+2	1	29
+3	63	1889
+4	17	509
+5	1788	53639
+6	3	89
+7	37422	1122659
+8	636664	19099919
+9	2862159	85864769
+10	869660286	26089808579
+
+For m=10, multiplier=330
+n	k	p
+1	6	1979
+2	2	659
+3	75	24749
+4	35	11549
+5	1279	422069
+6	2457	810809
+7	3402	1122659
+8	685958	226366139
+9	924826	305192579
+10	79060026	26089808579
+11	2015282064	665043081119
+12	1680873571	554688278429
+
+For m=12, multiplier=4290
+n	k	p
+1	1	4289
+2	11	47189
+3	63	270269
+4	4	17159
+5	169	725009
+6	189	810809
+7	543	2329469
+8	52766	226366139
+9	1773167	7606886429
+10	15300502	65639153579
+11	1215268002	5213499728579
+12	129297967	554688278429
+
+For m=18, multiplier=81510
+n	k	p
+1	3	244529
+2	1	81509
+3	133	10840829
+4	94	7661939
+5	47	3830969
+6	1189	96915389
+7	4968	404941679
+8	96836	7893102359
+9	1353957	110361035069
+10	30088330	2452499778299
+11	471590419	38439335052689
+12	75838255213	6181576182411629
+13	50189331757	4090932431513069
+
+For m=28, multiplier=2363790
+n	k	p
+1	6	14182739
+2	1	2363789
+3	31	73277489
+4	502	1186622579
+5	5180	12244432199
+6	41	96915389
+7	203558	481168364819
+8	2205808	5214066892319
+9	116303229	274916409677909
+10	11744222	27760874521379
+11	
+12	56254738041	132974387233935389
+
+For m=36, multiplier=87460230
+n	k	p
+1	7	612221609
+2	4	349840919
+3	83	7259199089
+4	241	21077915429
+5	140	12244432199
+6	10465	915271306949
+7	202555	17715506887649
+8	2969284	259694261575319
+9	31846965	2785342883701949
+10	213933499	18710673027244769
+11	3982100443	348275420627881889
+
+The -n, --shorter_chain_length is misnamed.  It can be larger
+than m, so "-n, --length_to_print" would be better.
+

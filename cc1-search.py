@@ -104,7 +104,10 @@ def main():
 			if args.progress:
 				eprint(end=LINE_CLEAR,flush=True)
 				eprint(f"k=0 ss={len(init_sieve_mod)} Adding p={p} to sieve",end='\r',flush=True)
-			init_sieve_mod[p] = k_mod(p,i,mul)
+			if i < n:
+				init_sieve_mod[p] = k_mod(p,i,mul)
+			else:
+				init_sieve_mod[p] = k_mod(p,n,mul)
 			#init_sieve_to[p] = 0
 			insort(init_sieve_to, (0,p))
 			#print("sieve_dict = ", sieve_dict)
@@ -134,40 +137,41 @@ def main():
 				bs_vals.set(1, [x - bs_start for x in sieve_vals[0:idx]])
 				del sieve_vals[:idx]
 			# Process the sieve_to values
-			while sieve_to[cur_st_idx][0] <= k:
-				p = sieve_to[cur_st_idx][1]
-				if args.progress:
-					eprint(end=LINE_CLEAR)
-					eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Updating sieve values for p={p}",end='\r')
-				b=(k//p)*p
-				for v in [b+i for i in sieve_mod[p]]:
-					if v < k:
-						v += p
-					if v < bs_end:
-						bs_vals.set(1, range(v-k, bs_size, p))
-					else:
-						if len(sieve_vals) == 0:
-							sieve_vals.append(v)
+			if len(sieve_to) > 0:
+				while sieve_to[cur_st_idx][0] <= k:
+					p = sieve_to[cur_st_idx][1]
+					if args.progress:
+						eprint(end=LINE_CLEAR)
+						eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Updating sieve values for p={p}",end='\r')
+					b=(k//p)*p
+					for v in [b+i for i in sieve_mod[p]]:
+						if v < k:
+							v += p
+						if v < bs_end:
+							bs_vals.set(1, range(v-k, bs_size, p))
 						else:
-							idx = bisect(sieve_vals, v)
-							if sieve_vals[idx-1] != v:
-								sieve_vals.insert(idx,v)
-				#sieve_to[p] = (k//p + 1)*p
-				insort(sieve_to, (bs_end,p), lo=cur_st_idx)
-				cur_st_idx = cur_st_idx +1
-				#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
-				idx = 0
-				if len(sieve_vals) != 0:
-					while sieve_vals[idx]==k:
-						idx += 1
-						k += 1
-						if idx==len(sieve_vals):
-							break
-					del sieve_vals[:idx]
-			del sieve_to[:cur_st_idx]
-#			if args.progress:
-#				eprint(end='\n')
-			cur_st_idx=0
+							if len(sieve_vals) == 0:
+								sieve_vals.append(v)
+							else:
+								idx = bisect(sieve_vals, v)
+								if sieve_vals[idx-1] != v:
+									sieve_vals.insert(idx,v)
+						#sieve_to[p] = (k//p + 1)*p
+					insort(sieve_to, (bs_end,p), lo=cur_st_idx)
+					cur_st_idx = cur_st_idx +1
+					#print("p = ", p, "sieve_dict[p] = ", sieve_dict[p])
+					idx = 0
+					if len(sieve_vals) != 0:
+						while sieve_vals[idx]==k:
+							idx += 1
+							k += 1
+							if idx==len(sieve_vals):
+								break
+						del sieve_vals[:idx]
+				del sieve_to[:cur_st_idx]
+#				if args.progress:
+#					eprint(end='\n')
+				cur_st_idx=0
 			if bs_vals.any(0):
 				break
 		# Step through bs_vals bitstring sieve vals
