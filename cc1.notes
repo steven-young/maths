@@ -1788,3 +1788,8 @@ followed by known lists of first Cunningham chain values
 
 Can you attach the python debugger to a running python script?
 
+20 May 26
+Installed python3.14 and set up a venv for v3.14 with primefac
+and bitstring installed and started running cc1-search.py within
+that environment.  This might allow me to attach a debugger to a
+running python environment.
