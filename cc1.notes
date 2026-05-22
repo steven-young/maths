@@ -339,7 +339,7 @@ form type 1 Cunningham  chains of length at most 3, except for
 47.  Starting at 30.k+11, the sequence continues 30.2.k+23,
 30.(4.k+1)+17 and the next item in the sequence is composite,
 30(8.k+3)+5
-For primes = 29 (mod 29), if the primes are also = 1 or 3 (mod
+For primes = 29 (mod 30), if the primes are also = 1 or 3 (mod
 7)
 then these can only form type 1 Cunningham chains of length at
 most 2, for example the chain 29 = 1 (mod 7), 59 = 3 (mod 7),
