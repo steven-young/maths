@@ -1950,3 +1950,24 @@ completely at the start rather than adding to the sieve as it
 encounters values
 The Mersenne factors search should lead to a table of values for
 primes with 2 as primitive root and the order of 2 mod p list
+
+23 May 26
+Success with mersenne_num_search.py. Worked out an elegant
+algorithm for determining order of 2 mod p from a search through
+Mersenne numbers
+
+My laptop is currently trying to determine the factors of M137
+
+I want to add code to read in values from already calculated data
+Also improv the algorithm to allow it to be interrupted or to
+time out and continue with and coping with unknowns
+
+Added a number_facts data structure which currently holds factors
+for larger M_n values
+
+A second chain of length: 13
+/tmp/cc1-search.18-4:k = 1067528335335: 87014234613155849 174028469226311699 348056938452623399 696113876905246799 1392227753810493599 2784455507620987199 5568911015241974399 11137822030483948799 22275644060967897599 44551288121935795199 89102576243871590399 178205152487743180799 356410304975486361599 length: 13 (712820609950972723199=449*727*2183732794413913)
+
+I suspect that there are better implementations of sieves for
+number theory. Find other code and algorithms
+

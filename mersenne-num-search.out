@@ -1,0 +1,590 @@
+Script started on 2026-05-23 08:04:45+01:00 [TERM="xterm-256color" TTY="/dev/pts/10" COLUMNS="80" LINES="39"]
+[?2004h]0;young@WorkThinkpadX1: ~/work/maths[01;32myoung@WorkThinkpadX1[00m:[01;34m~/work/maths[00m$ (reverse-i-search)`': [K[19@s': less +G cc1.note[7ms[27mo': [7mso[27murce .venv/bin/activate[1@u': [7msou[27m[1@r': [7msour[27m]0;young@WorkThinkpadX1: ~/work/maths[01;32myoung@WorkThinkpadX1[00m:[01;34m~/work/maths[00m$ source .venv/bin/activate
+[?2004l[?2004h(.venv) ]0;young@WorkThinkpadX1: ~/work/maths[01;32myoung@WorkThinkpadX1[00m:[01;34m~/work/maths[00m$ ./mersenne-num-search.py 
+[?2004l3 has 2 as a primitive root
+The order of 2 mod 3 is 2
+M2=3 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) c
+The order of 2 mod 7 is 3
+M3=7 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+5 has 2 as a primitive root
+The order of 2 mod 5 is 4
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 31 is 5
+M5=31 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+No new info from m=6
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 127 is 7
+M7=127 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 17 is 8
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 73 is 9
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+11 has 2 as a primitive root
+The order of 2 mod 11 is 10
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 23 is 11
+The order of 2 mod 89 is 11
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+13 has 2 as a primitive root
+The order of 2 mod 13 is 12
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 8191 is 13
+M13=8191 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 43 is 14
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 151 is 15
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 257 is 16
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 131071 is 17
+M17=131071 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+19 has 2 as a primitive root
+The order of 2 mod 19 is 18
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 524287 is 19
+M19=524287 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 41 is 20
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 337 is 21
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) c
+The order of 2 mod 683 is 22
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 47 is 23
+The order of 2 mod 178481 is 23
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 241 is 24
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 601 is 25
+The order of 2 mod 1801 is 25
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2731 is 26
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 262657 is 27
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+29 has 2 as a primitive root
+The order of 2 mod 29 is 28
+The order of 2 mod 113 is 28
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 233 is 29
+The order of 2 mod 2089 is 29
+The order of 2 mod 1103 is 29
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 331 is 30
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2147483647 is 31
+M31=2147483647 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 65537 is 32
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 599479 is 33
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 43691 is 34
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 71 is 35
+The order of 2 mod 122921 is 35
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+37 has 2 as a primitive root
+The order of 2 mod 37 is 36
+The order of 2 mod 109 is 36
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 223 is 37
+The order of 2 mod 616318177 is 37
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 174763 is 38
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 79 is 39
+The order of 2 mod 121369 is 39
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 61681 is 40
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 13367 is 41
+The order of 2 mod 164511353 is 41
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 5419 is 42
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 431 is 43
+The order of 2 mod 9719 is 43
+The order of 2 mod 2099863 is 43
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 397 is 44
+The order of 2 mod 2113 is 44
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 631 is 45
+The order of 2 mod 23311 is 45
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2796203 is 46
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2351 is 47
+The order of 2 mod 4513 is 47
+The order of 2 mod 13264529 is 47
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 97 is 48
+The order of 2 mod 673 is 48
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 4432676798593 is 49
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 251 is 50
+The order of 2 mod 4051 is 50
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 103 is 51
+The order of 2 mod 2143 is 51
+The order of 2 mod 11119 is 51
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+53 has 2 as a primitive root
+The order of 2 mod 53 is 52
+The order of 2 mod 157 is 52
+The order of 2 mod 1613 is 52
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 6361 is 53
+The order of 2 mod 69431 is 53
+The order of 2 mod 20394401 is 53
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 87211 is 54
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 881 is 55
+The order of 2 mod 3191 is 55
+The order of 2 mod 201961 is 55
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 15790321 is 56
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 32377 is 57
+The order of 2 mod 1212847 is 57
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+59 has 2 as a primitive root
+The order of 2 mod 59 is 58
+The order of 2 mod 3033169 is 58
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 179951 is 59
+The order of 2 mod 3203431780337 is 59
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+61 has 2 as a primitive root
+The order of 2 mod 61 is 60
+The order of 2 mod 1321 is 60
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2305843009213693951 is 61
+M61=2305843009213693951 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 715827883 is 62
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 92737 is 63
+The order of 2 mod 649657 is 63
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 641 is 64
+The order of 2 mod 6700417 is 64
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 145295143558111 is 65
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+67 has 2 as a primitive root
+The order of 2 mod 67 is 66
+The order of 2 mod 20857 is 66
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+
+
+
+
+
+The order of 2 mod 193707721 is 67
+The order of 2 mod 761838257287 is 67
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 137 is 68
+The order of 2 mod 953 is 68
+The order of 2 mod 26317 is 68
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 10052678938039 is 69
+
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 281 is 70
+The order of 2 mod 86171 is 70
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+
+The order of 2 mod 228479 is 71
+The order of 2 mod 48544121 is 71
+The order of 2 mod 212885833 is 71
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 433 is 72
+The order of 2 mod 38737 is 72
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+
+The order of 2 mod 439 is 73
+The order of 2 mod 2298041 is 73
+The order of 2 mod 9361973132609 is 73
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 1777 is 74
+The order of 2 mod 25781083 is 74
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 100801 is 75
+The order of 2 mod 10567201 is 75
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 229 is 76
+The order of 2 mod 457 is 76
+The order of 2 mod 525313 is 76
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 581283643249112959 is 77
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 22366891 is 78
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+
+The order of 2 mod 2687 is 79
+The order of 2 mod 202029703 is 79
+The order of 2 mod 1113491139767 is 79
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 4278255361 is 80
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2593 is 81
+The order of 2 mod 71119 is 81
+The order of 2 mod 97685839 is 81
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+83 has 2 as a primitive root
+The order of 2 mod 83 is 82
+The order of 2 mod 8831418697 is 82
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 167 is 83
+The order of 2 mod 57912614113275649087721 is 83
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 1429 is 84
+The order of 2 mod 14449 is 84
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 9520972806333758431 is 85
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2932031007403 is 86
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 4177 is 87
+The order of 2 mod 9857737155463 is 87
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 353 is 88
+The order of 2 mod 2931542417 is 88
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 618970019642690137449562111 is 89
+M89=618970019642690137449562111 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 18837001 is 90
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 911 is 91
+The order of 2 mod 112901153 is 91
+The order of 2 mod 23140471537 is 91
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 277 is 92
+The order of 2 mod 1013 is 92
+The order of 2 mod 1657 is 92
+The order of 2 mod 30269 is 92
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 658812288653553079 is 93
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 283 is 94
+The order of 2 mod 165768537521 is 94
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 191 is 95
+The order of 2 mod 420778751 is 95
+The order of 2 mod 30327152671 is 95
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 193 is 96
+The order of 2 mod 22253377 is 96
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 11447 is 97
+The order of 2 mod 13842607235828485645766393 is 97
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 4363953127297 is 98
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 199 is 99
+The order of 2 mod 153649 is 99
+The order of 2 mod 33057806959 is 99
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+101 has 2 as a primitive root
+The order of 2 mod 101 is 100
+The order of 2 mod 8101 is 100
+The order of 2 mod 268501 is 100
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+
+The order of 2 mod 7432339208719 is 101
+The order of 2 mod 341117531003194129 is 101
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 307 is 102
+The order of 2 mod 2857 is 102
+The order of 2 mod 6529 is 102
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2550183799 is 103
+The order of 2 mod 3976656429941438590393 is 103
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 858001 is 104
+The order of 2 mod 308761441 is 104
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 29191 is 105
+The order of 2 mod 152041 is 105
+The order of 2 mod 106681 is 105
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+107 has 2 as a primitive root
+The order of 2 mod 107 is 106
+The order of 2 mod 28059810762433 is 106
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 162259276829213363391578010288127 is 107
+M107=162259276829213363391578010288127 is a Mersenne prime
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 246241 is 108
+The order of 2 mod 279073 is 108
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 745988807 is 109
+The order of 2 mod 870035986098720987332873 is 109
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 2971 is 110
+The order of 2 mod 48912491 is 110
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 321679 is 111
+The order of 2 mod 26295457 is 111
+The order of 2 mod 319020217 is 111
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 5153 is 112
+The order of 2 mod 54410972897 is 112
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 65993 is 113
+The order of 2 mod 3391 is 113
+The order of 2 mod 23279 is 113
+The order of 2 mod 1868569 is 113
+The order of 2 mod 1066818132868207 is 113
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 571 is 114
+The order of 2 mod 160465489 is 114
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+The order of 2 mod 14951 is 115
+The order of 2 mod 4036961 is 115
+The order of 2 mod 2646507710984041 is 115
+> /home/young/work/maths/mersenne-num-search.py(82)main()
+-> [36mbreakpoint[0m[0m([0m[0m)[0m
+(Pdb) 
+Quitting pdb will kill the process. Quit anyway? [y/n] y
+[?2004h(.venv) ]0;young@WorkThinkpadX1: ~/work/maths[01;32myoung@WorkThinkpadX1[00m:[01;34m~/work/maths[00m$ [?2004l
+exit
+
+Script done on 2026-05-23 08:07:17+01:00 [COMMAND_EXIT_CODE="1"]
