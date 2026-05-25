@@ -2011,3 +2011,13 @@ Should clarify journal notes and then write up what I’ve done
 I should work thorough maths notes and check the things I have
 assumed and find proofs
 Specifically thinking of Mersenne factor assumptions
+
+Need to think through the Mersenne search algorithm and implement
+some timing measurements and capture information about things
+that take a bit of time and then work through how the algorithm
+can proceed with incomplete information
+
+Need to work on cc1 search algorithm to make it be able to print
+out the first occurence of a chain of specific lengths, so that I
+can start collecting information about the expected locations of
+chains of certain lengths, dependent on the multiplier size.
