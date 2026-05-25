@@ -1971,3 +1971,43 @@ A second chain of length: 13
 I suspect that there are better implementations of sieves for
 number theory. Find other code and algorithms
 
+I have surpassed the information provided on the web page:
+https://planetmath.org/tableoffactorsofsmallmersennenumbers
+
+There is information on
+https://www-users.york.ac.uk/~ss44/cyc/m/mersenne.htm which
+provides information for some Mersenne numbers
+https://web.archive.org/web/20070702163628/http://www.garlic.com/~wedgingt/mersenne.html
+https://web.archive.org/web/*/http://wedgingt.home.mindspring.com/*
+
+24 May 26
+Work on Mersenne search script:
+Output of details to JSON output which is able to be read in
+again
+Incorporating Mersenne factor information into the search
+activity
+I think there is activity to verify the factor information I’ve
+downloaded and then determination of further search that my
+scripting can usefully perform
+
+Need to work out how to incorporate the primitive root and other
+information into the cc1-search script
+
+Moved to searching for chains of length 13
+
+The 12 search reached the second chain of length 13:
+/tmp/cc1-search.12-4:k = 953597303383: 4090932431513069 8181864863026139 16363729726052279 32727459452104559 65454918904209119 130909837808418239 261819675616836479 523639351233672959 1047278702467345919 2094557404934691839 4189114809869383679 8378229619738767359 16756459239477534719 length: 13 (33512918478955069439=37*905754553485272147)
+
+http://www.ams.org/books/conm/022/
+
+https://homes.cerias.purdue.edu/~ssw/cun/third/index.html
+https://homes.cerias.purdue.edu/~ssw/cun/third/pmain901
+
+Extend the cc1-search script with further values for primes with
+2 as primitive root and order of 2 mod p values and be do some
+searches for first values with chains of certain length
+
+Should clarify journal notes and then write up what I’ve done
+I should work thorough maths notes and check the things I have
+assumed and find proofs
+Specifically thinking of Mersenne factor assumptions
