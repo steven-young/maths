@@ -751,7 +751,7 @@ algorithm that works here is to start with k=1 and if 6k-1
 or 12k-1 are both prime then this is a value of k that
 provides a Cunningham chain of length 2. Iterate to the
 next value of k=k+1.  If one or other of 6k-1 or 12k-1 is
-composite, then determine the prime factors, p,of the
+composite, then determine the prime factors, p, of the
 composite values and then consider the values of k, for
 general values of k, such that 6k-1 or 12k-1 are divisible
 by p.  This can be done in a general way by considering
@@ -791,7 +791,7 @@ chain being m=2 length can be considered, ie. The chain a
 value 95=5.19
 Also the elements of this chain also complete the
 investigation for later values of k so the work needn’t be
-fine for k=2, 4, 8
+done for k=2, 4, 8
 For k=5 the chain starts 29, 59 then the next value
 119=7.17 is composite
 k=7, the chain proceeds 41, 83 (k=14), 167 (k=28),
@@ -1279,8 +1279,8 @@ I’ve realised that my algorithm for CC_1 search doesn’t have to
 start at k=1 but could begin at arbitrary values of k
 
 Added a --start_k option to the script
-I’m interested now in the profession of the algorithm for larger
-values of m. The “encountered “ primes from the candidate valid
+I’m interested now in the progression of the algorithm for larger
+values of m. The “encountered“ primes from the candidate values
 for beginnings of Cunningham chains doesn’t seem to grow very
 quickly. What is the distribution of the primes that are
 encountered?  What is the distribution of the candidate chain
