@@ -2021,3 +2021,14 @@ Need to work on cc1 search algorithm to make it be able to print
 out the first occurence of a chain of specific lengths, so that I
 can start collecting information about the expected locations of
 chains of certain lengths, dependent on the multiplier size.
+
+26 May 26
+/tmp/cc1-search.18-4:k = 1645339137497: 134111593097380469 268223186194760939 536446372389521879 1072892744779043759 2145785489558087519 4291570979116175039 8583141958232350079 17166283916464700159 34332567832929400319 68665135665858800639 137330271331717601279 274660542663435202559 549321085326870405119 length: 13 (1098642170653740810239=887*5527*92033*2435003567)
+
+27 May 26
+Added code to read in list of primes with 2 as a primitive root
+and order of 2 mod p data from JSON files in data and started
+running a search for chains with multiplier for m=52
+Coding: cc1-search find minimal k for different multiplier values
+Need to include a function to update sieve_mod dictionary
+

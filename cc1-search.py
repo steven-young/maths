@@ -5,9 +5,10 @@ import subprocess
 import os
 import sys
 import signal
+import json
+import bitstring
 from primefac import isprime,primefac 
 from bisect import bisect,insort
-import bitstring
 
 LINE_CLEAR = '\x1b[2K'
 
@@ -55,8 +56,23 @@ def k_mod(p,i,mul):
 		k_list.append(k1*v%p)
 	return k_list
 
+def init_sieve(m,n,mul):
+	global order_2_mod_p
+	init_sieve_mod = {}
+	init_sieve_to = []
+	for i in range(3,m):
+		for p in order_2_mod_p[i]:
+			# Construct a set of values mod p where k*mul*2^j-1 for j in range(i)
+			if i < n:
+				init_sieve_mod[p] = k_mod(p,i,mul)
+			else:
+				init_sieve_mod[p] = k_mod(p,n,mul)
+			insort(init_sieve_to, (0,p))
+	return init_sieve_mod, init_sieve_to
+
 def main():
 	global k
+	global order_2_mod_p
 	signal.signal(signal.SIGINT, signal_handler)	
 	signal.signal(signal.SIGQUIT, signal_handler)	
 	signal.signal(signal.SIGTERM, signal_handler)	
@@ -68,18 +84,28 @@ def main():
 	parser.add_argument("-s","--sieve_size_limit", type=int,default=5000,help="Sieve size limit")
 	parser.add_argument("-p","--progress",action="store_true",help="Print progress")
 	parser.add_argument("-n","--shorter_chain_length", type=int,default=0,help="Shorter chain length to print")
+	parser.add_argument("-f","--find_minimal",action="store_true",help="Find minimal k values for different lengths")
 	args = parser.parse_args()
 	m = args.length
-	if (args.shorter_chain_length == 0):
-		n = m
+	if (args.find_minimal):
+		n = 1
+		seen = {}
 	else:
-		n = args.shorter_chain_length
+		if (args.shorter_chain_length == 0):
+			n = m
+		else:
+			n = args.shorter_chain_length
 	if m == 1:
 		print("All primes are candidates for chains of length 1")
 		exit(1)
 	# Check size of m against primes which have 2 as a primitive
 	# root and establish the multiplier for k
-	primitive_root_primes=(3,5,11,13,19,29,37)
+	prp_path = 'pr_primes.json'
+	if os.path.exists(prp_path):
+		with open(prp_path, "r", encoding="utf-8") as f:
+			primitive_root_primes = json.load(f)
+	else:
+		primitive_root_primes=(3,5,11,13,19,29,37)
 	mul=2
 	if m < max(primitive_root_primes):
 		for p in primitive_root_primes:
@@ -93,25 +119,15 @@ def main():
 		exit(1)
 
 	# Establish initial sieve considering primes with order of 2 mod p less than or equal to m
-	init_sieve_mod = {}
-	init_sieve_to = []
 	sieve_mod = {}
 	sieve_to = []
-	order_2_mod_p=((),(),(),(7,),(),(31,),(),(127,),(17,),(73,),(),(23,89),(),(8191,),(43,),(151,),(257,),(131071,),(),(524287,),(41,),(337,),(683,),(47,178481),(241,),(601,1801),(2731,),(262657,),(113,),(233,1103,2089),(331,),(2147483647,),(65537,),(599479,),(43691,),(71,122921),(109,))
-	for i in range(3,m):
-		for p in order_2_mod_p[i]:
-			# Construct a set of values mod p where k*mul*2^j-1 for j in range(i)
-			if args.progress:
-				eprint(end=LINE_CLEAR,flush=True)
-				eprint(f"k=0 ss={len(init_sieve_mod)} Adding p={p} to sieve",end='\r',flush=True)
-			if i < n:
-				init_sieve_mod[p] = k_mod(p,i,mul)
-			else:
-				init_sieve_mod[p] = k_mod(p,n,mul)
-			#init_sieve_to[p] = 0
-			insort(init_sieve_to, (0,p))
-			#print("sieve_dict = ", sieve_dict)
-
+	o2mp_path = 'o2mp.json'
+	if os.path.exists(o2mp_path):
+		with open(o2mp_path, "r", encoding="utf-8") as f:
+			order_2_mod_p = json.load(f)
+	else:
+		order_2_mod_p=((),(),(),(7,),(),(31,),(),(127,),(17,),(73,),(),(23,89),(),(8191,),(43,),(151,),(257,),(131071,),(),(524287,),(41,),(337,),(683,),(47,178481),(241,),(601,1801),(2731,),(262657,),(113,),(233,1103,2089),(331,),(2147483647,),(65537,),(599479,),(43691,),(71,122921),(109,))
+	init_sieve_mod, init_sieve_to = init_sieve(m,n,mul)
 	# Start searching
 	k=args.start_k
 	end_k = args.end_k
@@ -174,6 +190,11 @@ def main():
 				cur_st_idx=0
 			if bs_vals.any(0):
 				break
+			else:
+				k = bs_end
+				bs_start = k
+				bs_end = k + bs_size
+				bs_vals.set(0)
 		# Step through bs_vals bitstring sieve vals
 		# Find next value of k in bs_vals
 		while k < bs_end:
@@ -182,14 +203,33 @@ def main():
 				break;
 			k = bs_vals.find('0b0', k - bs_start)[0] + bs_start
 			num=mul*k-1
-			result=cc1(num)
 			cc1count += 1
 			if args.progress:
 				eprint(end=LINE_CLEAR)
 				eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Checking CC1({num})",end='\r')
+			result=cc1(num)
 			if len(result.chain)>=n:
-				print(f"k = {k}: ", end='')
-				print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
+				if args.find_minimal:
+					if not len(result.chain) in seen:
+						seen[len(result.chain)] = True
+						print(f"k = {k}: ", end='')
+						print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
+					if len(result.chain)==n:
+						# Increment n and update sieve_mod dictionary
+						while n in seen:
+							n += 1
+						init_sieve_mod, init_sieve_to = init_sieve(m,n,mul)
+						for p in sieve_mod:
+							if p in init_sieve_mod:
+								sieve_mod[p] = init_sieve_mod[p]
+							else:
+								if p-1 < n:
+									sieve_mod[p] = k_mod(p,p-1,mul)
+								else:
+									sieve_mod[p] = k_mod(p,n,mul)
+				else:
+					print(f"k = {k}: ", end='')
+					print(" ".join(map(str,result.chain))+f" length: {len(result.chain)} ({result.end}="+"*".join(map(str,result.factors))+")", flush=True)
 			for p in set(result.chain+result.factors):
 				if p > 1000000:
 					continue
@@ -198,7 +238,10 @@ def main():
 					eprint(f"k={k} ss={len(sieve_mod)} sv={len(sieve_vals)} cc1={cc1count} Adding p={p} to sieve",end='\r')
 				# Process each prime
 				#sieve_to[p] = k
-				sieve_mod[p] = k_mod(p,n,mul)
+				if p-1 < n:
+					sieve_mod[p] = k_mod(p,p-1,mul)
+				else:
+					sieve_mod[p] = k_mod(p,n,mul)
 				# Update bs_vals with these mod values
 				b = (k//p)*p
 				for v in [ b+i for i in sieve_mod[p] ]:
