@@ -2035,3 +2035,23 @@ running a search for chains with multiplier for m=52
 Coding: cc1-search find minimal k for different multiplier values
 Need to include a function to update sieve_mod dictionary
 
+29 May 26
+Pausing cc1-searches
+#./cc1-search.py -p 18 -n 13 -k 2071400000000 | tee -a /tmp/cc1-search.18-4
+#./cc1-search.py 28 -p -n 13 -k 2187400000000 | tee -a /tmp/cc1-search.28-4
+#./cc1-search.py 36 -p -n 13 -k 1728900000000 | tee -a /tmp/cc1-search.36-4
+I want to improve the sieve construction
+
+I need to improve the --find_minimal,-f code to update the
+bs_vals when the value of n is updated to improve the sieving in
+the first bitstring of sieve values.
+
+For higher values of chain length searching (-n), the number of
+candidates in the 100,000,000 bitstring sieve is small (~10s), so
+it is probably worthwhile thinking about changing the sieve
+mechanism.  We should be somehow collecting the list of candidate
+values rather than retaining the full list of k values that have
+been sieved.
+
+How have others implemented sieve methods in code?
+
