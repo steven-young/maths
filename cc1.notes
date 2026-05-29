@@ -2055,3 +2055,5 @@ been sieved.
 
 How have others implemented sieve methods in code?
 
+Also need to improve -f code to be able to restart at a specific
+-n, -k vals
