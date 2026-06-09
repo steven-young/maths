@@ -2057,3 +2057,21 @@ How have others implemented sieve methods in code?
 
 Also need to improve -f code to be able to restart at a specific
 -n, -k vals
+
+06 Jun 26
+In the Cunningham chain search script for higher multipliers I am
+beginning to hit the situation where the primality testing is
+taking up more time
+What is the time complexity here?  What is the algorithm being
+deployed by primefac module?
+
+Should work through mersenne-num-search.py algorithm by hand.
+Establish proofs for the things that are assumed true by the
+algorithm (Provable computing?).
+The Algorithm description comment has things which should be
+proved
+For M_n (=2^n-1), it can be seen that the order of 2 modulo M_n
+is n
+
+https://web.archive.org/web/20050406060553/http://ksc9.th.com/warut/meeus.html
+
